@@ -25,7 +25,7 @@ export default async function RootLayout({ children }) {
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-        <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,400..900;1,62..125,400..900&family=Lobster+Two:ital,wght@1,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Lobster+Two:ital,wght@1,700&display=swap" rel="stylesheet" />
       </head>
       <body>
         <CartProvider>

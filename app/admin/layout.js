@@ -6,7 +6,7 @@ import { AdminCtx } from '@/components/AdminCtx';
 import { supabase, configured } from '@/lib/supabase';
 
 
-const TABS = [['/admin', 'Orders'], ['/admin/products', 'Products'], ['/admin/categories', 'Categories'], ['/admin/settings', 'Delivery & settings']];
+const TABS = [['/admin', 'Orders'], ['/admin/products', 'Products'], ['/admin/categories', 'Categories'], ['/admin/settings', 'Delivery & settings'], ['/admin/admins', 'Admins']];
 
 export default function AdminLayout({ children }) {
   const path = usePathname();
@@ -43,25 +43,28 @@ export default function AdminLayout({ children }) {
   return (
     <AdminCtx.Provider value={{ toast, email: session?.user?.email }}>
       <div className="adm">
-        <div className="adm-top">
-          <div className="wrap">
-            <div>
-              <img className="bird" src="/bird.webp" alt="" />
-              <div><h1>Smile Shopping admin</h1><p>{session?.user?.email || 'Sign in to manage the shop'}</p></div>
-              <div className="adm-links">
-                <Link href="/" target="_blank">View shop ↗</Link>
-                {session && <button type="button" onClick={() => supabase.auth.signOut()}>Sign out</button>}
-              </div>
+        <header className="adm-top">
+          <div className="wrap adm-bar">
+            <Link className="logo" href="/admin" aria-label="Smile Shopping admin">
+              <img className="bird" src="/bird.webp" alt="" width="52" height="47" />
+              <img className="word" src="/word.webp" alt="Smile Shopping" width="211" height="19" />
+              <span className="adm-badge">Admin</span>
+            </Link>
+            <div className="adm-links">
+              {session?.user?.email && <span className="mute adm-who">{session.user.email}</span>}
+              <Link className="btn btn-line btn-sm" href="/" target="_blank">View shop</Link>
+              {session && <button className="btn btn-ink btn-sm" type="button" onClick={() => supabase.auth.signOut()}>Sign out</button>}
             </div>
-            {isAdmin && (
-              <nav className="tabs">
-                {TABS.map(([h, l]) => (
-                  <Link key={h} href={h} className={(h === '/admin' ? path === h : path.startsWith(h)) ? 'on' : ''}>{l}</Link>
-                ))}
-              </nav>
-            )}
           </div>
-        </div>
+          {isAdmin && (
+            <nav className="wrap tabs">
+              {TABS.map(([h, l]) => (
+                <Link key={h} href={h} className={(h === '/admin' ? path === h : path.startsWith(h)) ? 'on' : ''}>{l}</Link>
+              ))}
+            </nav>
+          )}
+          <div className="plumage" />
+        </header>
         <section className="wrap adm-body">{body}</section>
         <div id="toast" role="status" className={msg ? 'on' : ''}>{msg}</div>
       </div>
@@ -86,7 +89,7 @@ function Login() {
   };
   return (
     <form className="adm-card login" onSubmit={submit}>
-      <h2>Sign in</h2>
+      <img src="/bird.webp" alt="" width="64" style={{ display: 'block', margin: '0 auto 8px' }} /><h2 style={{ textAlign: 'center' }}>Admin sign in</h2>
       <div className="f"><label htmlFor="em">Email</label><input id="em" type="email" autoComplete="email" required value={email} onChange={e => setEmail(e.target.value)} /></div>
       <div className="f"><label htmlFor="pw">Password</label><input id="pw" type="password" autoComplete="current-password" required value={pw} onChange={e => setPw(e.target.value)} /></div>
       {err && <p className="err" style={{ display: 'block' }}>{err}</p>}
