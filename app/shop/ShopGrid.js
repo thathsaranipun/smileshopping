@@ -5,6 +5,40 @@ import ProductCard from '@/components/ProductCard';
 import { WAIcon, SearchIcon } from '@/components/icons';
 import { waLink } from '@/lib/format';
 
+const SORTS = [['f', 'Featured'], ['new', 'Newest'], ['lo', 'Price: low to high'], ['hi', 'Price: high to low']];
+
+function SortMenu({ value, onChange }) {
+  const [open, setOpen] = useState(false);
+  const box = useRef();
+  useEffect(() => {
+    if (!open) return;
+    const close = e => { if (!box.current?.contains(e.target)) setOpen(false); };
+    const esc = e => { if (e.key === 'Escape') setOpen(false); };
+    document.addEventListener('pointerdown', close); document.addEventListener('keydown', esc);
+    return () => { document.removeEventListener('pointerdown', close); document.removeEventListener('keydown', esc); };
+  }, [open]);
+  const label = SORTS.find(([v]) => v === value)?.[1];
+  return (
+    <div className="dd" ref={box}>
+      <button type="button" className="sel dd-btn" aria-haspopup="listbox" aria-expanded={open} onClick={() => setOpen(o => !o)}>
+        <span className="mute">Sort:</span> {label}
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
+      </button>
+      {open && (
+        <ul className="dd-menu" role="listbox" aria-label="Sort products">
+          {SORTS.map(([v, l]) => (
+            <li key={v} role="option" aria-selected={v === value}>
+              <button type="button" className={v === value ? 'on' : ''} onClick={() => { onChange(v); setOpen(false); }}>
+                {l}{v === value && <span aria-hidden="true">✓</span>}
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}
+
 export default function ShopGrid({ cats, products, cat, q: q0, focus, whatsapp }) {
   const [q, setQ] = useState(q0);
   const [sort, setSort] = useState('f');
@@ -33,10 +67,7 @@ export default function ShopGrid({ cats, products, cat, q: q0, focus, whatsapp }
         <label className="search"><SearchIcon />
           <input ref={input} type="search" placeholder="Search products…" aria-label="Search products" value={q} onChange={e => setQ(e.target.value)} />
         </label>
-        <select className="sel" aria-label="Sort" value={sort} onChange={e => setSort(e.target.value)}>
-          <option value="f">Featured</option><option value="new">Newest</option>
-          <option value="lo">Price: low to high</option><option value="hi">Price: high to low</option>
-        </select>
+        <SortMenu value={sort} onChange={setSort} />
       </div>
       <div className="chips">
         <Link className={`chip ${!c ? 'on' : ''}`} href="/shop">All</Link>
