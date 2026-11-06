@@ -1,8 +1,10 @@
 'use client';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { AdminCtx } from '@/components/AdminCtx';
+import Drawer from '@/components/Drawer';
+import { MenuIcon, ChevronIcon } from '@/components/icons';
 import { supabase, configured } from '@/lib/supabase';
 
 
@@ -13,6 +15,11 @@ export default function AdminLayout({ children }) {
   const [session, setSession] = useState(undefined);
   const [isAdmin, setIsAdmin] = useState(null);
   const [msg, setMsg] = useState('');
+  const [menu, setMenu] = useState(false);
+  const closeMenu = useCallback(() => setMenu(false), []);
+  const isOn = h => (h === '/admin' ? path === h : path.startsWith(h));
+
+  useEffect(() => setMenu(false), [path]);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => setSession(data.session));
@@ -55,16 +62,41 @@ export default function AdminLayout({ children }) {
               <Link className="btn btn-line btn-sm" href="/" target="_blank">View shop</Link>
               {session && <button className="btn btn-ink btn-sm" type="button" onClick={() => supabase.auth.signOut()}>Sign out</button>}
             </div>
+            {isAdmin && (
+              <div className="adm-mob">
+                <span className="adm-cur">{TABS.find(([h]) => isOn(h))?.[1]}</span>
+                <button className="ibtn" type="button" aria-label="Open admin menu" aria-controls="admin-menu" aria-expanded={menu} onClick={() => setMenu(true)}><MenuIcon /></button>
+              </div>
+            )}
           </div>
           {isAdmin && (
             <nav className="wrap tabs">
               {TABS.map(([h, l]) => (
-                <Link key={h} href={h} className={(h === '/admin' ? path === h : path.startsWith(h)) ? 'on' : ''}>{l}</Link>
+                <Link key={h} href={h} className={isOn(h) ? 'on' : ''} aria-current={isOn(h) ? 'page' : undefined}>{l}</Link>
               ))}
             </nav>
           )}
           <div className="plumage" />
         </header>
+        {isAdmin && (
+          <Drawer
+            id="admin-menu" open={menu} onClose={closeMenu} title="Admin menu"
+            head={<span className="drw-title">Admin<span className="adm-badge">Menu</span></span>}
+            foot={<>
+              {session?.user?.email && <p className="mute drw-who">Signed in as <b>{session.user.email}</b></p>}
+              <div className="drw-btns">
+                <Link className="btn btn-line" href="/" target="_blank">View shop</Link>
+                <button className="btn btn-ink" type="button" data-close onClick={() => supabase.auth.signOut()}>Sign out</button>
+              </div>
+            </>}
+          >
+            <nav className="drw-nav" aria-label="Admin">
+              {TABS.map(([h, l]) => (
+                <Link key={h} href={h} className={isOn(h) ? 'on' : ''} aria-current={isOn(h) ? 'page' : undefined}>{l}<ChevronIcon /></Link>
+              ))}
+            </nav>
+          </Drawer>
+        )}
         <section className="wrap adm-body">{body}</section>
         <div id="toast" role="status" className={msg ? 'on' : ''}>{msg}</div>
       </div>
