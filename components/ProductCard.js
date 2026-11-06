@@ -12,6 +12,7 @@ export default function ProductCard({ p }) {
     <Link className="tag" href={`/product/${p.slug}`}>
       <div className="tag-img plume" style={plumeStyle(p.category)}>
         <ProductImage product={p} />
+        {p.images?.[1] && <img className="alt" src={p.images[1]} alt="" loading="lazy" decoding="async" />}
         {out ? <span className="badge out">Sold out</span> : off ? <span className="badge">-{off}%</span> : null}
       </div>
       <div className="tag-body">

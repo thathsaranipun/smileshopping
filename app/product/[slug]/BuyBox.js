@@ -8,6 +8,29 @@ import { WAIcon } from '@/components/icons';
 import { money, discount, plumeStyle, waLink } from '@/lib/format';
 import { track } from '@/lib/track';
 
+/* Plain text from the admin: "Key : Value" lines become a spec table, short lines without a colon become headings. */
+function Description({ text }) {
+  const blocks = [];
+  for (const raw of text.split(/\r?\n/)) {
+    const line = raw.trim();
+    if (!line) continue;
+    const kv = line.match(/^([^:]{2,40}?)\s+:\s+(.+)$/);
+    const last = blocks[blocks.length - 1];
+    if (kv) {
+      if (last?.type === 'dl') last.rows.push([kv[1], kv[2]]);
+      else blocks.push({ type: 'dl', rows: [[kv[1], kv[2]]] });
+    } else if (line.length <= 40 && !/[.!]$/.test(line)) blocks.push({ type: 'h', text: line });
+    else blocks.push({ type: 'p', text: line });
+  }
+  return (
+    <div className="desc">
+      {blocks.map((b, i) => b.type === 'dl'
+        ? <dl key={i}>{b.rows.flatMap(([k, v], j) => [<dt key={`t${j}`}>{k}</dt>, <dd key={`d${j}`}>{v}</dd>])}</dl>
+        : b.type === 'h' ? <h4 key={i}>{b.text}</h4> : <p key={i}>{b.text}</p>)}
+    </div>
+  );
+}
+
 export default function BuyBox({ p, whatsapp, deliveryFrom }) {
   const { add } = useCart();
   const router = useRouter();
@@ -94,7 +117,7 @@ export default function BuyBox({ p, whatsapp, deliveryFrom }) {
             <div><span>💳</span><span>Pay securely by card online, or cash on delivery.</span></div>
             <div><span>↩︎</span><span>7-day returns on unused items. <Link href="/info/returns">Details</Link></span></div>
           </div>
-          {p.description && <p className="desc">{p.description}</p>}
+          {p.description && <Description text={p.description} />}
         </div>
       </section>
 

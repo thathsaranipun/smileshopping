@@ -10,18 +10,19 @@ export default function Footer({ whatsapp }) {
   return (
     <>
       <footer className="ftr">
-        <div className="plumage" />
         <div className="wrap">
           <div className="ftr-g">
             <div>
               <img className="bird" src="/bird.webp" alt="" />
               <img className="word" src="/word.webp" alt="Smile Shopping" />
-              <p className="script">Srilanka&apos;s best online chain</p>
+              <p className="blurb">Kanjivaram silk half sarees and South-style Kanchi cotton lehengas, in ready stock and delivered to every district in Sri Lanka.</p>
+              <a className="btn btn-light" href={waLink(whatsapp, 'Hi Smile Shopping!')} target="_blank" rel="noopener"><WAIcon /> Let&apos;s talk</a>
             </div>
             <div><h4>Shop</h4>
-              <Link href="/shop">All products</Link><Link href="/shop?cat=home">Home &amp; Kitchen</Link>
-              <Link href="/shop?cat=tech">Electronics</Link><Link href="/shop?cat=beauty">Beauty &amp; Care</Link>
-              <Link href="/shop?cat=fashion">Fashion</Link><Link href="/shop?cat=kids">Kids &amp; Toys</Link>
+              <Link href="/shop">All products</Link>
+              <Link href="/shop?cat=kanjivaram-silk">Kanjivaram silk half sarees</Link>
+              <Link href="/shop?cat=kanchi-cotton">Kanchi cotton lehengas</Link>
+              <Link href="/cart">Your cart</Link>
             </div>
             <div><h4>Help</h4>
               <Link href="/info/delivery">Delivery information</Link><Link href="/info/payment">Payment information</Link>
@@ -32,7 +33,7 @@ export default function Footer({ whatsapp }) {
               <Link href="/info/terms">Terms &amp; conditions</Link>
             </div>
           </div>
-          <div className="copy">© {new Date().getFullYear()} Smile Shopping · smileshopping.lk</div>
+          <div className="copy"><span>© {new Date().getFullYear()} Smile Shopping · smileshopping.lk</span><span>Island-wide delivery · Sri Lanka</span></div>
         </div>
       </footer>
       <a className="fwa" href={waLink(whatsapp, 'Hi Smile Shopping! I have a question.')} target="_blank" rel="noopener" aria-label="Chat on WhatsApp">

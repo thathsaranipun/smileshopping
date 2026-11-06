@@ -22,7 +22,7 @@ export default async function Info({ params }) {
   const body = {
     about: <>
       <p className="script" style={{ marginBottom: 14 }}>Srilanka&apos;s best online chain</p>
-      <p>Smile Shopping brings everyday things that make life brighter (home and kitchen, beauty, tech, fashion and kids&apos; favourites) to every district in Sri Lanka.</p>
+      <p>Smile Shopping brings Kanjivaram silk zari half sarees and South-style Kanchi cotton lehengas, in ready stock, to every district in Sri Lanka.</p>
       <p>We keep it simple: fair prices, clear photos, fast delivery and a real person on WhatsApp when you need help.</p>
     </>,
     contact: <>

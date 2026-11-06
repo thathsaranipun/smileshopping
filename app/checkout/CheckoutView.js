@@ -4,8 +4,8 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useCart } from '@/components/CartProvider';
 import { ReceiptHead, ReceiptLine, deliveryFor, zoneFor } from '@/components/Receipt';
-import { supabase } from '@/lib/supabase';
-import { money, DISTRICTS } from '@/lib/format';
+import { supabase, configured } from '@/lib/supabase';
+import { money, waLink, DISTRICTS } from '@/lib/format';
 import { track } from '@/lib/track';
 import { DKEY } from '../cart/CartView';
 
@@ -49,6 +49,19 @@ export default function CheckoutView({ zones, settings }) {
     if (!f.district) e.district = 'Select your district';
     setErrs(e);
     if (Object.keys(e).length) { document.querySelector('.bad')?.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
+    if (!configured) {
+      // No database yet: hand the order to the shop on WhatsApp instead.
+      const lines = items.map(l => `• ${l.name}${l.variant ? ` (${l.variant})` : ''} × ${l.qty} = ${money(l.price * l.qty)}`);
+      const msg = [`Hi Smile Shopping! I'd like to order:`, ...lines, '', `Subtotal: ${money(subtotal)}`,
+        `Delivery: ${del === null ? 'to confirm' : del === 0 ? 'FREE' : money(del)}`, `Total: ${money(subtotal + (del || 0))}`, '',
+        `Name: ${f.customer_name.trim()}`, `Mobile: ${f.mobile.replace(/\s/g, '')}`, `Address: ${f.address.trim()}, ${f.district}`,
+        `Payment: ${f.pay_method === 'cod' ? 'Cash on delivery' : 'Online'}`, f.notes ? `Note: ${f.notes.trim()}` : ''].filter(Boolean).join('\n');
+      window.open(waLink(settings.whatsapp, msg), '_blank', 'noopener');
+      track('Purchase', { value: subtotal + (del || 0), currency: 'LKR' });
+      clear();
+      router.push('/');
+      return;
+    }
     setBusy(true); setFail('');
     const payload = { ...f, mobile: f.mobile.replace(/\s/g, ''), items: items.map(l => ({ product_id: l.product_id, qty: l.qty, variant: l.variant })) };
     const { data: token, error } = await supabase.rpc('place_order', { p: payload });
@@ -110,7 +123,7 @@ export default function CheckoutView({ zones, settings }) {
             <div className="r-line r-total"><span>Total</span><span>{money(subtotal + (del || 0))}</span></div>
             {fail && <div className="err" style={{ display: 'block', fontFamily: 'var(--fd)' }}>{fail}</div>}
             <button className="btn btn-brand btn-block" type="button" style={{ marginTop: 18 }} disabled={busy} onClick={submit}>
-              {busy ? 'Placing order…' : f.pay_method === 'cod' ? 'Place order' : 'Place order & pay'}
+              {busy ? 'Placing order…' : !configured ? 'Send order on WhatsApp' : f.pay_method === 'cod' ? 'Place order' : 'Place order & pay'}
             </button>
             <div className="r-note" style={{ textAlign: 'center', marginTop: 10 }}>🔒 Card details are handled by the payment gateway, never stored on this site.</div>
           </div>

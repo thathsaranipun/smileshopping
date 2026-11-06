@@ -58,14 +58,14 @@ export default function ShopGrid({ cats, products, cat, q: q0, focus, whatsapp }
   }, [products, c, q, sort]);
 
   return (
-    <section className="wrap sec">
+    <section className="wrap page-top">
       <div className="shop-head">
-        <h1 className="pg-title">{c ? c.name : 'All products'}</h1>
+        <div><p className="eyebrow">Smile Shopping · Shop</p><h1 className="pg-title">{c ? c.name : 'All products'}</h1></div>
         <span className="mute">{list.length} {list.length === 1 ? 'product' : 'products'}</span>
       </div>
       <div className="tools">
         <label className="search"><SearchIcon />
-          <input ref={input} type="search" placeholder="Search products…" aria-label="Search products" value={q} onChange={e => setQ(e.target.value)} />
+          <input ref={input} type="search" placeholder="Search a colour, e.g. teal, maroon…" aria-label="Search products" value={q} onChange={e => setQ(e.target.value)} />
         </label>
         <SortMenu value={sort} onChange={setSort} />
       </div>
