@@ -218,14 +218,6 @@ create policy "admin delete product photos" on storage.objects for delete using 
 -- ---------- starter data ----------
 insert into public.settings (id) values (1) on conflict (id) do nothing;
 
-insert into public.categories (name, slug, sort, bg, w1, w2) values
- ('Home & Kitchen','home',1,'#FFF4D1','#FFE38A','#FBC24A'),
- ('Beauty & Care','beauty',2,'#F7EAFD','#EBCBF8','#D7A6F0'),
- ('Electronics','tech',3,'#E3F7FF','#B5EBFF','#7DD8FB'),
- ('Fashion','fashion',4,'#FFECE1','#FFCDAE','#FFA877'),
- ('Kids & Toys','kids',5,'#E8EEFF','#C9D7FF','#9DB4F7')
-on conflict (slug) do nothing;
-
 insert into public.delivery_zones (name, days, rate, sort, districts)
 select * from (values
  ('Colombo district','1–2 working days',350,1,array['Colombo']),
@@ -234,25 +226,6 @@ select * from (values
  ('Northern & Eastern districts','3–5 working days',550,4,array['Jaffna','Kilinochchi','Mannar','Vavuniya','Mullaitivu','Trincomalee','Batticaloa','Ampara'])
 ) v(name,days,rate,sort,districts)
 where not exists (select 1 from public.delivery_zones);
-
-insert into public.products (slug,name,description,category_id,price,was_price,stock,variant_label,variants,featured)
-select v.slug,v.name,v.descr,c.id,v.price,v.was,v.stock,v.vl,v.vars,v.feat
-from (values
- ('clay-brew-mug-set','Clay Brew Mug Set (2 pcs)','Hand-glazed ceramic mugs that keep your tea warm for longer. 350ml each, microwave and dishwasher safe.','home',2450,2900,24,'Colour',array['Red','Sand','Plum'],true),
- ('insulated-flask','Everyday Insulated Flask 750ml','Cold for 24 hours, hot for 12. Leak-proof lid that fits most car cup holders.','home',3200,null,40,'Colour',array['Sky','Sunny','Night'],true),
- ('electric-kettle','Quick-Boil Electric Kettle 1.7L','Stainless steel body, auto shut-off and boil-dry protection.','home',6950,7900,9,'Colour','{}'::text[],false),
- ('wireless-headphones','Aura Wireless Headphones','40-hour battery, soft memory-foam cushions and Bluetooth 5.3 with a built-in mic.','tech',8900,10500,15,'Colour',array['Plum','Midnight'],true),
- ('mini-speaker','Pocket Beat Mini Speaker','Splash-proof speaker with 12 hours of playtime and a clip for your bag.','tech',4500,null,3,'Colour',array['Orange','Graphite'],true),
- ('smart-watch','Pulse Fit Smart Watch','Heart-rate, sleep and step tracking with a 7-day battery and WhatsApp notifications.','tech',11900,null,12,'Colour',array['Blue','Black'],false),
- ('glow-serum','Glow Vitamin C Serum 30ml','Brightening serum with vitamin C and niacinamide. Lightweight and suitable for all skin types.','beauty',2890,null,30,'Colour','{}'::text[],true),
- ('lip-tint','Velvet Lip Tint','Long-wear tint with a soft matte finish that feels weightless.','beauty',1450,null,50,'Shade',array['Rose','Berry','Nude'],false),
- ('canvas-tote','Market Canvas Tote','Heavy cotton canvas tote with an inner zip pocket.','fashion',1990,null,60,'Colour',array['Plum','Natural','Navy'],true),
- ('street-sneakers','Street Runner Sneakers','Breathable mesh upper with a cushioned sole for all-day comfort.','fashion',7450,8500,7,'Size',array['UK 6','UK 7','UK 8','UK 9'],true),
- ('cuddle-bear','Cuddle Bear Plush 30cm','Super-soft, child-safe plush with stitched eyes. Machine washable.','kids',2350,null,20,'Colour','{}'::text[],true),
- ('kids-bottle','Little Sipper Kids Bottle','BPA-free 400ml bottle with a flip straw. Fits in any school bag.','kids',1650,null,28,'Colour',array['Sky','Mango'],false)
-) v(slug,name,descr,cat,price,was,stock,vl,vars,feat)
-join public.categories c on c.slug = v.cat
-on conflict (slug) do nothing;
 
 -- ---------- make yourself admin: change the email, then run this line ----------
 -- insert into public.admins (email) values ('you@example.com') on conflict do nothing;
