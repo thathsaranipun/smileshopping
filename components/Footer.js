@@ -1,14 +1,12 @@
 'use client';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 import { WAIcon, CartIcon } from './icons';
 import { useCart } from './CartProvider';
 import { waLink, prettyPhone } from '@/lib/format';
+import { SITE } from '@/data/site';
 
 export default function Footer({ whatsapp }) {
-  const path = usePathname();
   const { count } = useCart();
-  if (path.startsWith('/admin')) return null;
   const hi = waLink(whatsapp, 'Hi Smile Shopping!');
   return (
     <>
@@ -38,8 +36,8 @@ export default function Footer({ whatsapp }) {
             <div className="contact"><h4>Contact</h4>
               <a href={hi} target="_blank" rel="noopener">WhatsApp: {prettyPhone(whatsapp)}</a>
               <a href={`tel:+${whatsapp}`}>Call: {prettyPhone(whatsapp)}</a>
-              <a href="mailto:hello@smileshopping.lk">hello@smileshopping.lk</a>
-              <span>Mon – Sat, 9.00am – 7.00pm</span>
+              <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+              <span>{SITE.hours}</span>
               <div className="socials">
                 <a href={hi} target="_blank" rel="noopener" aria-label="WhatsApp"><WAIcon size={18} /></a>
                 <a href={`tel:+${whatsapp}`} aria-label="Call us">

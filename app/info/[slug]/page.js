@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { notFound, permanentRedirect } from 'next/navigation';
+import { notFound } from 'next/navigation';
 import { WAIcon } from '@/components/icons';
 import PageHero from '@/components/PageHero';
 import CallbackForm from '@/components/CallbackForm';
@@ -17,6 +17,11 @@ const PAGES = {
 };
 
 const UPDATED = '18 November 2026';
+
+export function generateStaticParams() {
+  return Object.keys(PAGES).map(slug => ({ slug }));
+}
+export const dynamicParams = false;
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;
@@ -36,7 +41,6 @@ const Clock = () => (
 
 export default async function Info({ params }) {
   const { slug } = await params;
-  if (slug === 'payment') permanentRedirect('/info/how-to-order');
   const page = PAGES[slug];
   if (!page) notFound();
   const [settings, zones] = await Promise.all([getSettings(), getZones()]);
@@ -57,11 +61,11 @@ export default async function Info({ params }) {
             <a className="card ccard" href={`tel:+${wa}`} data-rv style={{ '--d': '.06s' }}>
               <i><Phone /></i><small>Call us</small><b>{prettyPhone(wa)}</b><span>Mon – Sat, during opening hours</span>
             </a>
-            <a className="card ccard" href="mailto:hello@smileshopping.lk" data-rv style={{ '--d': '.12s' }}>
-              <i><Mail /></i><small>Email</small><b>hello@smileshopping.lk</b><span>We reply within one working day</span>
+            <a className="card ccard" href={`mailto:${settings.email}`} data-rv style={{ '--d': '.12s' }}>
+              <i><Mail /></i><small>Email</small><b>{settings.email}</b><span>We reply within one working day</span>
             </a>
             <div className="card ccard" data-rv style={{ '--d': '.18s' }}>
-              <i><Clock /></i><small>Opening hours</small><b>9.00am – 7.00pm</b><span>Monday to Saturday</span>
+              <i><Clock /></i><small>Opening hours</small><b>{settings.hours}</b><span>Messages outside these hours are answered next morning</span>
             </div>
           </div>
 
@@ -133,9 +137,9 @@ export default async function Info({ params }) {
       <h2>5. How long we keep it</h2>
       <p>We keep order records for as long as we need them for delivery, returns and our business accounts, then delete them.</p>
       <h2>6. Your rights</h2>
-      <p>You can ask us at any time to see the information we hold about you, correct it, or delete it. Message us on WhatsApp or email <a href="mailto:hello@smileshopping.lk">hello@smileshopping.lk</a> and we will reply within 7 working days. We handle personal data in line with Sri Lanka&apos;s Personal Data Protection Act, No. 9 of 2022.</p>
+      <p>You can ask us at any time to see the information we hold about you, correct it, or delete it. Message us on WhatsApp or email <a href={`mailto:${settings.email}`}>{settings.email}</a> and we will reply within 7 working days. We handle personal data in line with Sri Lanka&apos;s Personal Data Protection Act, No. 9 of 2022.</p>
       <h2>7. Contact</h2>
-      <p>Smile Shopping · WhatsApp {prettyPhone(wa)} · <a href="mailto:hello@smileshopping.lk">hello@smileshopping.lk</a></p>
+      <p>Smile Shopping · WhatsApp {prettyPhone(wa)} · <a href={`mailto:${settings.email}`}>{settings.email}</a></p>
     </div>,
     terms: <div className="legal">
       <p className="updated">Last updated: {UPDATED}</p>
@@ -160,7 +164,7 @@ export default async function Info({ params }) {
       <h2>10. Changes and law</h2>
       <p>We may update these terms from time to time; the version on this page applies to new orders. These terms are governed by the laws of Sri Lanka.</p>
       <h2>11. Contact</h2>
-      <p>Questions about these terms? WhatsApp {prettyPhone(wa)} or email <a href="mailto:hello@smileshopping.lk">hello@smileshopping.lk</a>.</p>
+      <p>Questions about these terms? WhatsApp {prettyPhone(wa)} or email <a href={`mailto:${settings.email}`}>{settings.email}</a>.</p>
     </div>,
   }[slug];
 

@@ -1,5 +1,11 @@
-// The lehenga / half-saree collection. Used as the shop's catalogue when Supabase isn't connected,
-// and turned into supabase/003_lehenga_catalog.sql by scripts/catalog-sql.mjs so the live shop sells the same items.
+// THE SHOP CATALOGUE — edit this file to add, remove or change products.
+//
+// Add a product:  add a line to ITEMS below: [slug, colour name, category slug, photo count, featured]
+// Its photos:     put them in public/products/lehenga/ named <slug>-1.jpeg, <slug>-2.jpeg, ...
+// Prices:         PRICES below sets the price per collection. To give one product its own price, add it as a
+//                 6th value on its line, e.g. ['red-navy', 'Red & Navy', 'kanjivaram-silk', 1, false, 5500]
+// Sold out:       add the product's slug to SOLD_OUT (it stays on the site, marked "Sold out").
+// Delivery:       ZONES at the bottom (charge per district group).
 
 const SILK = `NEW: 12 colours available
 Half saree, now in trend. 100% pure quality, same as the video.
@@ -46,7 +52,7 @@ export const CATEGORIES = [
 
 const img = (slug, n) => Array.from({ length: n }, (_, i) => `/products/lehenga/${slug}-${i + 1}.jpeg`);
 
-// [slug, colour name, category slug, photo count, featured]
+// [slug, colour name, category slug, photo count, featured, (optional) own price]
 const ITEMS = [
   ['silver-royal-purple', 'Silver & Royal Purple', 'kanjivaram-silk', 2, true],
   ['powder-blue-violet', 'Powder Blue & Violet', 'kanjivaram-silk', 2, true],
@@ -79,7 +85,13 @@ const ITEMS = [
   ['maroon-black', 'Maroon & Black', 'kanchi-cotton', 1, false],
 ];
 
-export const PRODUCTS = ITEMS.map(([slug, colour, cat, n, featured], i) => {
+// Price per collection, in rupees.
+export const PRICES = { 'kanjivaram-silk': 4900, 'kanchi-cotton': 7200 };
+
+// Slugs of products that are sold out, e.g. ['red-navy', 'royal-blue'].
+export const SOLD_OUT = [];
+
+export const PRODUCTS = ITEMS.map(([slug, colour, cat, n, featured, ownPrice], i) => {
   const category = CATEGORIES.find(c => c.slug === cat);
   const silk = cat === 'kanjivaram-silk';
   return {
@@ -87,9 +99,9 @@ export const PRODUCTS = ITEMS.map(([slug, colour, cat, n, featured], i) => {
     slug: silk ? `kanjivaram-silk-half-saree-${slug}` : `kanchi-cotton-lehenga-${slug}`,
     name: silk ? `Kanjivaram Silk Half Saree · ${colour}` : `Kanchi Cotton Lehenga · ${colour}`,
     description: silk ? SILK : COTTON,
-    price: silk ? 4900 : 7200,
+    price: ownPrice || PRICES[cat],
     was_price: null,
-    stock: 10,
+    stock: SOLD_OUT.includes(slug) ? 0 : 10,
     variant_label: 'Colour',
     variants: [],
     images: img(slug, n),

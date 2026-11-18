@@ -1,26 +1,29 @@
 'use client';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useCart } from '@/components/CartProvider';
 import { ReceiptHead, ReceiptLine, deliveryFor, zoneFor } from '@/components/Receipt';
 import { WAIcon } from '@/components/icons';
-import { supabase, configured } from '@/lib/supabase';
 import { money, waLink, orderMessage, DISTRICTS } from '@/lib/format';
 import { track } from '@/lib/track';
 import { DKEY } from '../cart/CartView';
 
 const FKEY = 'ss-checkout';
 
-/* No online payment: the order is saved (so it shows in the admin dashboard) and then sent to the shop on WhatsApp.
+// Short order reference the shop and customer can both quote in the chat, e.g. SS-1118-4K7Q.
+const orderRef = () => {
+  const d = new Date();
+  const mmdd = String(d.getMonth() + 1).padStart(2, '0') + String(d.getDate()).padStart(2, '0');
+  return `SS-${mmdd}-${Math.random().toString(36).slice(2, 6).toUpperCase()}`;
+};
+
+/* No database and no online payment: the WhatsApp message IS the order.
    The customer pays cash on delivery, or however they agree with the shop in the chat. */
 export default function CheckoutView({ zones, settings }) {
   const { items, ready, subtotal, clear } = useCart();
-  const router = useRouter();
   const [f, setF] = useState({ customer_name: '', mobile: '', email: '', address: '', district: '', notes: '' });
   const [errs, setErrs] = useState({});
-  const [busy, setBusy] = useState(false);
-  const [fail, setFail] = useState('');
+  const [sent, setSent] = useState(null);
 
   useEffect(() => {
     try {
@@ -37,6 +40,26 @@ export default function CheckoutView({ zones, settings }) {
   };
 
   if (!ready) return null;
+
+  // After sending: the cart is cleared, but the order message is kept so it can be sent again.
+  if (sent) {
+    return (
+      <section className="wrap">
+        <div className="flow"><span className="done">1 Cart</span><span className="done">2 Details</span><span className="done">3 WhatsApp</span><span className="on">4 Done</span></div>
+        <div className="okhead">
+          <div className="okmark"><img src="/bird.webp" alt="" /></div>
+          <h1>Thank you, {sent.first}!</h1>
+          <p>Your order <span className="oid">{sent.ref}</span> is ready in WhatsApp. Press <b>send</b> there and we&apos;ll confirm stock and delivery in minutes. Pay {money(sent.total)} in cash when it arrives.</p>
+        </div>
+        <div className="card sendbox">
+          <p><b>Didn&apos;t see WhatsApp open?</b><br />Tap the button to open it again with your order filled in.</p>
+          <a className="btn btn-wa" href={sent.link} target="_blank" rel="noopener"><WAIcon /> Send order on WhatsApp</a>
+        </div>
+        <div className="ord-actions" style={{ marginTop: 26 }}><Link className="btn btn-line" href="/shop">Continue shopping</Link></div>
+      </section>
+    );
+  }
+
   if (!items.length) {
     return <section className="wrap"><div className="empty"><b>Your cart is empty</b>Add a product to start your order.<br /><br /><Link className="btn btn-brand" href="/shop">Browse products</Link></div></section>;
   }
@@ -44,7 +67,7 @@ export default function CheckoutView({ zones, settings }) {
   const del = deliveryFor(zones, settings, subtotal, f.district);
   const zone = zoneFor(zones, f.district);
 
-  const submit = async () => {
+  const submit = () => {
     const e = {};
     if (f.customer_name.trim().length < 2) e.customer_name = 'Enter your full name';
     if (!/^0\d{9}$/.test(f.mobile.replace(/\s/g, ''))) e.mobile = 'Enter a 10-digit mobile number starting with 0';
@@ -57,31 +80,13 @@ export default function CheckoutView({ zones, settings }) {
     const customer = { name: f.customer_name.trim(), mobile: f.mobile.replace(/\s/g, ''), address: f.address.trim(), district: f.district, notes: f.notes.trim() };
     const value = subtotal + (del || 0);
 
-    if (!configured) {
-      // No database yet: the WhatsApp message is the order.
-      window.open(waLink(settings.whatsapp, orderMessage({ items, subtotal, delivery: del, customer })), '_blank', 'noopener');
-      track('Purchase', { value, currency: 'LKR' });
-      clear();
-      router.push('/');
-      return;
-    }
-
-    // Open the WhatsApp tab now, inside the tap, so the browser doesn't block it as a pop-up once the order is saved.
-    const win = window.open('', '_blank');
-    if (win) win.opener = null;
-    setBusy(true); setFail('');
-    const payload = { ...f, mobile: customer.mobile, pay_method: 'cod', items: items.map(l => ({ product_id: l.product_id, qty: l.qty, variant: l.variant })) };
-    const { data: token, error } = await supabase.rpc('place_order', { p: payload });
-    if (error) { win?.close(); setBusy(false); setFail(error.message || 'Could not place the order. Please try again.'); return; }
-    const { data: o } = await supabase.rpc('get_order', { t: token });
-    const msg = orderMessage({
-      items: o?.items || items, subtotal: o?.subtotal ?? subtotal, delivery: o ? o.delivery : del, customer,
-      orderNo: o?.order_no, link: `${location.origin}/order/${token}`,
-    });
-    if (win) win.location.href = waLink(settings.whatsapp, msg);
+    const ref = orderRef();
+    const link = waLink(settings.whatsapp, orderMessage({ items, subtotal, delivery: del, customer, orderNo: ref }));
+    window.open(link, '_blank', 'noopener');
     track('Purchase', { value, currency: 'LKR' });
+    setSent({ ref, link, total: value, first: customer.name.split(' ')[0] });
     clear();
-    router.push(`/order/${token}`);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const field = (k, label, props = {}) => (
@@ -127,9 +132,8 @@ export default function CheckoutView({ zones, settings }) {
             {zone && <div className="r-note">{zone.days}</div>}
             <div className="r-line r-total"><span>Total</span><span>{money(subtotal + (del || 0))}</span></div>
             <div className="r-note">Pay cash on delivery</div>
-            {fail && <div className="err" style={{ display: 'block' }}>{fail}</div>}
-            <button className="btn btn-wa btn-block wa-big" type="button" style={{ marginTop: 18 }} disabled={busy} onClick={submit}>
-              <WAIcon /> {busy ? 'Sending order…' : 'Send order on WhatsApp'}
+            <button className="btn btn-wa btn-block wa-big" type="button" style={{ marginTop: 18 }} onClick={submit}>
+              <WAIcon /> Send order on WhatsApp
             </button>
             <div className="r-note" style={{ textAlign: 'center', marginTop: 10 }}>WhatsApp opens with your order ready to send.</div>
           </div>

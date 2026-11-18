@@ -1,26 +1,37 @@
-# Smile Shopping — Next.js + Supabase
+# Smile Shopping — Next.js storefront
 
-Storefront (home, shop, search, product, cart, checkout, order tracking, WhatsApp) and an admin dashboard at `/admin`
-(orders, products with photo upload, categories, delivery charges, WhatsApp number).
+Kanjivaram silk half sarees and Kanchi cotton lehengas. Every order is sent to the shop on **WhatsApp** and paid
+**cash on delivery**. There is no database, no admin panel and no online payment: everything the site shows comes from
+the files in `data/` and the photos in `public/`.
 
-## Setup
-1. **Supabase** → SQL Editor → paste `supabase/schema.sql` → Run.
-2. **Supabase** → Authentication → Users → Add user (email + password, tick *Auto confirm*).
-   Then in SQL Editor: `insert into admins (email) values ('that@email.com');`
-3. **Supabase** → Authentication → Sign In / Providers → turn **off** "Allow new users to sign up".
-4. **Vercel** → import this repo → Environment Variables:
-   - `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` (Supabase → Project Settings → API)
-   - `NEXT_PUBLIC_SITE_URL` (e.g. https://smileshopping.vercel.app)
-   - optional: `NEXT_PUBLIC_META_PIXEL_ID`, `NEXT_PUBLIC_GA_ID`
-5. Deploy. Sign in at `/admin`.
+## Change things
 
-## Local dev
-`cp .env.example .env.local`, fill in keys, `npm install`, `npm run dev`.
+| What | Where |
+|---|---|
+| WhatsApp number, email, opening hours, free-delivery amount | `data/site.js` |
+| Products, collections, prices, sold-out items | `data/products.mjs` (instructions at the top of the file) |
+| Delivery charges per district | `ZONES` at the bottom of `data/products.mjs` |
+| Product photos | `public/products/lehenga/<slug>-1.jpeg`, `-2.jpeg`, … |
+| Cover slideshow | `public/images/hero/hero-1.jpg` … `hero-4.jpg` |
+| Page banners, collection cards, lookbook, section photos | `public/images/banners`, `collections`, `lookbook`, `sections` |
 
-## How ordering works (no payment gateway)
-- **Product page → "Order on WhatsApp"** opens WhatsApp with that product, option, qty and price filled in.
-- **Cart → checkout → "Send order on WhatsApp"** saves the order (it appears in `/admin` with its order number),
-  then opens WhatsApp with the full order, delivery address and a tracking link. The customer pays cash on delivery.
-- The WhatsApp number comes from **Admin → Settings** (format `94771234567`).
-- Existing database: run `supabase/004_whatsapp_orders.sql` once to remove the old sandbox payment functions.
-- Prices, delivery and stock are always calculated in the database (`place_order`), never trusted from the browser.
+After editing, commit and push; Vercel rebuilds the site automatically.
+
+### Add a product
+1. Put its photos in `public/products/lehenga/`, named `my-colour-1.jpeg`, `my-colour-2.jpeg`, …
+2. Add a line to `ITEMS` in `data/products.mjs`:
+   `['my-colour', 'My Colour Name', 'kanjivaram-silk', 2, false],`
+   (slug, colour name, collection, number of photos, show in favourites; optional 6th value = its own price).
+
+### Mark something sold out
+Add its slug to `SOLD_OUT` in `data/products.mjs`, e.g. `export const SOLD_OUT = ['red-navy'];`
+
+## How ordering works
+- **Product page → "Order on WhatsApp"** opens WhatsApp with that product, option, quantity and price filled in.
+- **Cart → checkout → "Send order on WhatsApp"** opens WhatsApp with the full order, an order reference
+  (e.g. `SS-1118-4K7Q`), the delivery charge for the customer's district and their address.
+- The shop confirms in the chat; the customer pays the rider in cash.
+
+## Run it
+- Local: `npm install`, then `npm run dev`.
+- Vercel: import the repo; optionally set `NEXT_PUBLIC_SITE_URL` (see `.env.example`).

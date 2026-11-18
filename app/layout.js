@@ -19,14 +19,12 @@ export const metadata = {
 
 export const viewport = { width: 'device-width', initialScale: 1, viewportFit: 'cover', themeColor: '#0a0a0a' };
 
-// Always show the latest products, prices and stock straight after an admin edit.
-export const dynamic = 'force-dynamic';
 
 export default async function RootLayout({ children }) {
   const settings = await getSettings();
   const ld = {
     '@context': 'https://schema.org', '@type': 'ClothingStore', name: 'Smile Shopping', url: SITE_URL, image: `${SITE_URL}/icon.png`,
-    telephone: `+${settings.whatsapp}`, email: 'hello@smileshopping.lk', priceRange: 'Rs. 4,900 – Rs. 7,200',
+    telephone: `+${settings.whatsapp}`, email: settings.email, priceRange: 'Rs. 4,900 – Rs. 7,200',
     address: { '@type': 'PostalAddress', addressCountry: 'LK' }, areaServed: 'Sri Lanka', paymentAccepted: 'Cash on delivery',
     openingHours: 'Mo-Sa 09:00-19:00',
   };

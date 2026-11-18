@@ -4,6 +4,12 @@ import ProductCard from '@/components/ProductCard';
 import BuyBox from './BuyBox';
 import { getProduct, getProducts, getSettings, getZones, SITE_URL } from '@/lib/data';
 
+// Every product page is built ahead of time from data/products.mjs.
+export async function generateStaticParams() {
+  return (await getProducts()).map(p => ({ slug: p.slug }));
+}
+export const dynamicParams = false;
+
 export async function generateMetadata({ params }) {
   const { slug } = await params;
   const p = await getProduct(slug);

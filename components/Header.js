@@ -97,7 +97,6 @@ export default function Header({ whatsapp }) {
     return () => { clearTimeout(t); window.removeEventListener('scroll', onScroll); };
   }, [path]);
 
-  if (path.startsWith('/admin')) return null;
   return (
     <>
       <header className={`hdr ${clear ? 'clear' : ''}`}>
