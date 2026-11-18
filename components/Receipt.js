@@ -16,7 +16,7 @@ export function ReceiptLine({ item, children }) {
   const p = { name: item.name, images: item.image ? [item.image] : [] };
   return (
     <div className="r-item">
-      <div className="r-thumb plume" style={plumeStyle(item.cat)}><ProductImage product={p} /></div>
+      <div className="r-thumb plume" style={plumeStyle(item.cat)}><ProductImage product={p} small /></div>
       <div>
         <div className="r-name">{item.name}</div>
         <div className="r-var">{item.variant ? `${item.variant} · ` : ''}{children ? `${money(item.price)} each` : `Qty ${item.qty}`}</div>

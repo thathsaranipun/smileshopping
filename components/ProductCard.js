@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import { useCart } from './CartProvider';
 import ProductImage from './ProductImage';
-import { money, discount, plumeStyle } from '@/lib/format';
+import { money, discount, plumeStyle, smallImg } from '@/lib/format';
 
 export default function ProductCard({ p }) {
   const { add } = useCart();
@@ -12,7 +12,7 @@ export default function ProductCard({ p }) {
     <Link className="tag" href={`/product/${p.slug}`}>
       <div className="tag-img plume" style={plumeStyle(p.category)}>
         <ProductImage product={p} />
-        {p.images?.[1] && <img className="alt" src={p.images[1]} alt="" loading="lazy" decoding="async" />}
+        {p.images?.[1] && <img className="alt" src={smallImg(p.images[1])} alt="" loading="lazy" decoding="async" />}
         {out ? <span className="badge out">Sold out</span> : off ? <span className="badge">-{off}%</span> : null}
       </div>
       <div className="tag-body">

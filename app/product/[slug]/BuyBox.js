@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useCart } from '@/components/CartProvider';
 import ProductImage from '@/components/ProductImage';
 import { WAIcon } from '@/components/icons';
-import { money, discount, plumeStyle, waLink, orderMessage } from '@/lib/format';
+import { money, discount, plumeStyle, waLink, orderMessage, smallImg } from '@/lib/format';
 import { track } from '@/lib/track';
 
 /* Plain text from the admin: "Key : Value" lines become a spec table, short lines without a colon become headings. */
@@ -64,14 +64,14 @@ export default function BuyBox({ p, whatsapp, deliveryFrom }) {
       <section className="pd">
         <div>
           <div className="gal-main plume" style={plumeStyle(p.category)}>
-            <ProductImage product={p} index={img} priority />
+            <ProductImage product={p} index={img} priority sizes="(max-width: 900px) 100vw, 55vw" />
             {off > 0 && <span className="badge" style={{ fontSize: 15, top: 18, left: 18 }}>Save {money(p.was_price - p.price)}</span>}
           </div>
           {shots.length > 1 && (
             <div className="thumbs">
               {shots.map((s, i) => (
                 <button key={i} type="button" className={`thumb ${i === img ? 'on' : ''}`} onClick={() => setImg(i)} aria-label={`Photo ${i + 1}`}>
-                  <img src={s} alt="" />
+                  <img src={smallImg(s)} alt="" loading="lazy" decoding="async" />
                 </button>
               ))}
             </div>

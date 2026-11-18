@@ -58,11 +58,11 @@ export default async function Home() {
   const catInfo = {
     'kanjivaram-silk': { tag: 'Silk', blurb: 'Silk zari lehenga, blouse and a Banarasi voni. Light, festive and ready to drape.', shot: '/images/collections/silk.jpg' },
     'kanchi-cotton': { tag: 'Cotton', blurb: 'South-style Kanchi cotton with zari weaving. Stitched lehenga, blouse fabric and georgette dupatta.', shot: '/images/collections/cotton.jpg' },
-    sarees: { tag: 'Sarees', blurb: 'Kanchipuram pattu, bridal brocade, Banarasi, Kerala mulmul, satin and linen.', shot: '/products/sarees/kerala-kanchi-border-mulcotton-saree/1.jpeg', unit: 'styles' },
-    lehengas: { tag: 'Lehengas', blurb: 'Heavy net lehengas with multi thread embroidery and cut work borders.', shot: '/products/lehengas/net-embroidery-lehenga-1025/2.jpeg', unit: 'styles' },
-    'suit-sets': { tag: 'Suits', blurb: 'Fully stitched farshi, palazzo and party wear sets with dupatta, M to XXL.', shot: '/products/suit-sets/farshi-suit-set-1505/1.jpeg', unit: 'styles' },
-    'gowns-kurtis': { tag: 'Gowns', blurb: 'Three layer maxi gowns and Aliya cut flared tops with heavy handwork.', shot: '/products/gowns-kurtis/aliya-cut-handwork-top/1.jpeg', unit: 'styles' },
-    kids: { tag: 'Kids', blurb: 'Fully stitched silk sets for girls aged 3 to 15 years.', shot: '/products/kids/kids-silk-suit-set/1.jpeg', unit: 'styles' },
+    sarees: { tag: 'Sarees', blurb: 'Kanchipuram pattu, bridal brocade, Banarasi, Kerala mulmul, satin and linen.', shot: '/images/collections/sarees.jpg', unit: 'styles' },
+    lehengas: { tag: 'Lehengas', blurb: 'Heavy net lehengas with multi thread embroidery and cut work borders.', shot: '/images/collections/lehengas.jpg', unit: 'styles' },
+    'suit-sets': { tag: 'Suits', blurb: 'Fully stitched farshi, palazzo and party wear sets with dupatta, M to XXL.', shot: '/images/collections/suit-sets.jpg', unit: 'styles' },
+    'gowns-kurtis': { tag: 'Gowns', blurb: 'Three layer maxi gowns and Aliya cut flared tops with heavy handwork.', shot: '/images/collections/gowns-kurtis.jpg', unit: 'styles' },
+    kids: { tag: 'Kids', blurb: 'Fully stitched silk sets for girls aged 3 to 15 years.', shot: '/images/collections/kids.jpg', unit: 'styles' },
   };
 
   return (
@@ -80,7 +80,7 @@ export default async function Home() {
           <div className="hx-copy">
             <p className="eyebrow">Ready stock · Sri Lanka · Island-wide delivery</p>
             <h1>Timeless elegance in <em>every drape</em></h1>
-            <p className="lede">Kanjivaram silk half sarees and South-style Kanchi cotton lehengas. Pick your colour, send your order on WhatsApp and pay when it arrives.</p>
+            <p className="lede">Kanchipuram and bridal sarees, half sarees, lehengas, suit sets and gowns. Pick your style, send your order on WhatsApp and pay when it arrives.</p>
             <div className="cta-row">
               <Link className="btn btn-light" href="/shop">Shop the collection <Arr /></Link>
               <a className="btn btn-wa" href={waLink(wa, 'Hi Smile Shopping! I would like to order.')} target="_blank" rel="noopener"><WAIcon /> Order on WhatsApp</a>
@@ -93,7 +93,7 @@ export default async function Home() {
       <section className="wrap sx who">
         <div className="who-img" data-rv>
           <img src="/images/sections/who.jpg" alt="Model in a crimson lehenga and net dupatta" loading="lazy" />
-          <div className="stamp"><b>{products.length}</b><small>colours ready to ship</small></div>
+          <div className="stamp"><b>{products.length}</b><small>styles ready to ship</small></div>
         </div>
         <div data-rv>
           <p className="eyebrow">Who we are</p>
@@ -127,7 +127,7 @@ export default async function Home() {
 
       {/* 4. Stats band */}
       <section className="stats" aria-label="Smile Shopping in numbers" style={{ '--bgimg': 'url(/images/sections/red-silk.jpg)' }}>
-        <StatCounter value={products.length} suffix="+" label="Colours in stock" />
+        <StatCounter value={products.length} suffix="+" label="Styles in stock" />
         <StatCounter value={cats.length} label="Collections" />
         <StatCounter value={25} label="Districts delivered" />
         <StatCounter value={7} label="Day easy returns" />
@@ -146,7 +146,7 @@ export default async function Home() {
                 <span className="pill">{info.tag}</span>
                 <h3>{c.name}</h3>
                 {info.blurb && <p>{info.blurb}</p>}
-                <span className="go">Explore {n} {info.unit || 'colours'} <span className="arrow">→</span></span>
+                <span className="go">Explore {n} {n === 1 ? (info.unit || 'colours').replace(/s$/, '') : (info.unit || 'colours')} <span className="arrow">→</span></span>
               </Link>
             );
           })}
