@@ -58,11 +58,16 @@ export default function ShopGrid({ cats, products, cat, q: q0, focus, whatsapp }
     return ps;
   }, [products, c, q, sort]);
 
-  const intro = cat === 'kanjivaram-silk'
-    ? 'Silk zari lehenga, blouse and a Banarasi voni. Light, festive and ready to drape.'
-    : cat === 'kanchi-cotton'
-      ? 'South-style Kanchi cotton with zari weaving. Stitched lehenga, blouse fabric and georgette dupatta.'
-      : 'Every half saree and lehenga in ready stock. Find your colour and order on WhatsApp.';
+  const INTROS = {
+    'kanjivaram-silk': 'Silk zari lehenga, blouse and a Banarasi voni. Light, festive and ready to drape.',
+    'kanchi-cotton': 'South-style Kanchi cotton with zari weaving. Stitched lehenga, blouse fabric and georgette dupatta.',
+    sarees: 'Kanchipuram pattu, bridal brocade, Banarasi, Kerala mulmul, satin and linen sarees in ready stock.',
+    lehengas: 'Heavy net lehengas with multi thread embroidery and cut work borders.',
+    'suit-sets': 'Fully stitched farshi, palazzo and party wear sets with dupatta, M to XXL.',
+    'gowns-kurtis': 'Three layer maxi gowns and Aliya cut flared tops with heavy handwork.',
+    kids: 'Fully stitched silk sets for girls aged 3 to 15 years.',
+  };
+  const intro = INTROS[cat] || 'Every saree, lehenga and set in ready stock. Find your style and order on WhatsApp.';
 
   return (
     <>

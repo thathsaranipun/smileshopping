@@ -4,6 +4,7 @@ import { WAIcon, CartIcon } from './icons';
 import { useCart } from './CartProvider';
 import { waLink, prettyPhone } from '@/lib/format';
 import { SITE } from '@/data/site';
+import { CATEGORIES } from '@/data/products.mjs';
 
 export default function Footer({ whatsapp }) {
   const { count } = useCart();
@@ -16,13 +17,12 @@ export default function Footer({ whatsapp }) {
             <div>
               <img className="bird" src="/images/brand/bird.webp" alt="" />
               <img className="word" src="/images/brand/word.webp" alt="Smile Shopping" />
-              <p className="blurb">Kanjivaram silk half sarees and South-style Kanchi cotton lehengas, in ready stock and delivered to every district in Sri Lanka. Order in one WhatsApp message.</p>
+              <p className="blurb">Sarees, half sarees, lehengas, suit sets, gowns and kidswear, in ready stock and delivered to every district in Sri Lanka. Order in one WhatsApp message.</p>
               <a className="btn btn-light" href={hi} target="_blank" rel="noopener"><WAIcon /> Order on WhatsApp</a>
             </div>
             <div><h4>Shop</h4>
               <Link href="/shop">All products</Link>
-              <Link href="/shop?cat=kanjivaram-silk">Kanjivaram silk half sarees</Link>
-              <Link href="/shop?cat=kanchi-cotton">Kanchi cotton lehengas</Link>
+              {[...CATEGORIES].sort((x, y) => x.sort - y.sort).map(c => <Link key={c.slug} href={`/shop?cat=${c.slug}`}>{c.name}</Link>)}
               <Link href="/cart">Your cart</Link>
             </div>
             <div><h4>Help</h4>

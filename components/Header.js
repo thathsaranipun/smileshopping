@@ -6,8 +6,10 @@ import { useCart } from './CartProvider';
 import { WAIcon, SearchIcon, CartIcon, MenuIcon, ChevronIcon } from './icons';
 import Drawer from './Drawer';
 import { waLink } from '@/lib/format';
+import { CATEGORIES } from '@/data/products.mjs';
 
-const SHOP = [['/shop', 'Shop all'], ['/shop?cat=kanjivaram-silk', 'Silk half sarees'], ['/shop?cat=kanchi-cotton', 'Cotton lehengas']];
+// Shop dropdown: "Shop all" + every collection in data/products.mjs.
+const SHOP = [['/shop', 'Shop all'], ...[...CATEGORIES].sort((a, b) => a.sort - b.sort).map(c => [`/shop?cat=${c.slug}`, c.name])];
 const NAV = [['/', 'Home'], ['/info/about', 'About'], ['/info/how-to-order', 'How to order'], ['/info/contact', 'Contact']];
 const HELP = [['/info/delivery', 'Delivery information'], ['/info/returns', 'Returns & refunds'], ['/info/about', 'About us']];
 

@@ -58,6 +58,11 @@ export default async function Home() {
   const catInfo = {
     'kanjivaram-silk': { tag: 'Silk', blurb: 'Silk zari lehenga, blouse and a Banarasi voni. Light, festive and ready to drape.', shot: '/images/collections/silk.jpg' },
     'kanchi-cotton': { tag: 'Cotton', blurb: 'South-style Kanchi cotton with zari weaving. Stitched lehenga, blouse fabric and georgette dupatta.', shot: '/images/collections/cotton.jpg' },
+    sarees: { tag: 'Sarees', blurb: 'Kanchipuram pattu, bridal brocade, Banarasi, Kerala mulmul, satin and linen.', shot: '/products/sarees/kerala-kanchi-border-mulcotton-saree/1.jpeg', unit: 'styles' },
+    lehengas: { tag: 'Lehengas', blurb: 'Heavy net lehengas with multi thread embroidery and cut work borders.', shot: '/products/lehengas/net-embroidery-lehenga-1025/2.jpeg', unit: 'styles' },
+    'suit-sets': { tag: 'Suits', blurb: 'Fully stitched farshi, palazzo and party wear sets with dupatta, M to XXL.', shot: '/products/suit-sets/farshi-suit-set-1505/1.jpeg', unit: 'styles' },
+    'gowns-kurtis': { tag: 'Gowns', blurb: 'Three layer maxi gowns and Aliya cut flared tops with heavy handwork.', shot: '/products/gowns-kurtis/aliya-cut-handwork-top/1.jpeg', unit: 'styles' },
+    kids: { tag: 'Kids', blurb: 'Fully stitched silk sets for girls aged 3 to 15 years.', shot: '/products/kids/kids-silk-suit-set/1.jpeg', unit: 'styles' },
   };
 
   return (
@@ -130,8 +135,8 @@ export default async function Home() {
 
       {/* 5. Collections */}
       <section className="wrap sx">
-        <SectionHeading eyebrow="What we offer" title="Shop by collection" intro="Two signature styles, each in a palette of jewel tones with hand-finished zari borders." />
-        <div className="collections">
+        <SectionHeading eyebrow="What we offer" title="Shop by collection" intro="Sarees, half sarees, lehengas, suit sets, gowns and kidswear, all in ready stock." />
+        <div className="collections coll8">
           {cats.map((c, i) => {
             const n = products.filter(p => p.category_id === c.id).length;
             const info = catInfo[c.slug] || { tag: 'Collection', blurb: '', shot: products.find(p => p.category_id === c.id)?.images?.[0] };
@@ -141,7 +146,7 @@ export default async function Home() {
                 <span className="pill">{info.tag}</span>
                 <h3>{c.name}</h3>
                 {info.blurb && <p>{info.blurb}</p>}
-                <span className="go">Explore {n} colours <span className="arrow">→</span></span>
+                <span className="go">Explore {n} {info.unit || 'colours'} <span className="arrow">→</span></span>
               </Link>
             );
           })}
@@ -149,7 +154,7 @@ export default async function Home() {
             <img src="/images/collections/all.jpg" alt="" />
             <span className="pill">All</span>
             <h3>The full edit</h3>
-            <p>Every half saree and lehenga in one place. Filter by collection, search a colour and order in a minute.</p>
+            <p>Every saree, lehenga and set in one place. Filter by collection, search a colour and order in a minute.</p>
             <span className="go">View everything <span className="arrow">→</span></span>
           </Link>
         </div>

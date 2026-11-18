@@ -1186,3 +1186,12 @@ a.ccard:hover { border-color: rgba(242, 101, 34, .5); }
 /* footer credit */
 .ftr .copy .dev a { display: inline; padding: 0; color: #fff; font-weight: 700; letter-spacing: .04em; text-decoration: none; }
 .ftr .copy .dev a:hover, .ftr .copy .dev a:active, .ftr .copy .dev a:focus, .ftr .copy .dev a:visited { color: #fff; text-decoration: none; }
+
+/* homepage collections: 7 collections + "full edit" in a 4-column grid */
+.collections.coll8 { grid-template-columns: repeat(4, 1fr); }
+.collections.coll8 .coll { min-height: 24rem; padding: 24px; }
+.collections.coll8 .coll h3 { font-size: clamp(20px, 1.7vw, 26px); }
+.collections.coll8 .coll p { font-size: 14px; }
+.collections.coll8 .coll:last-child { grid-column: auto; min-height: 24rem; }
+@media (max-width: 1100px) { .collections.coll8 { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .collections.coll8 { grid-template-columns: 1fr 1fr; gap: 10px; } .collections.coll8 .coll { min-height: 17rem; padding: 16px; } .collections.coll8 .coll p { display: none; } }
