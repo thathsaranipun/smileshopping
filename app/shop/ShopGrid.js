@@ -66,7 +66,7 @@ export default function ShopGrid({ cats, products, cat, q: q0, focus, whatsapp }
 
   return (
     <>
-    <PageHero image="/images/banner-shop.jpg" pos="center 6%" eyebrow="Smile Shopping · Shop" title={c ? c.name : 'Shop all'} intro={intro} />
+    <PageHero image="/images/banners/shop.jpg" pos="center 6%" eyebrow="Smile Shopping · Shop" title={c ? c.name : 'Shop all'} intro={intro} />
     <section className="wrap page-top">
       <div className="shop-head">
         <span className="mute">{list.length} {list.length === 1 ? 'product' : 'products'}</span>

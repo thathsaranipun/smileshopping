@@ -1126,3 +1126,59 @@ a.ccard:hover { border-color: rgba(242, 101, 34, .5); }
   .hx-slides img:first-child { opacity: 1; transform: none; }
   .hx-dots { display: none; }
 }
+
+/* ---------- privacy policy + terms ---------- */
+.legal { max-width: 760px; }
+.legal .updated { font-size: 13px; letter-spacing: .14em; text-transform: uppercase; font-weight: 600; color: var(--orange); margin: 0 0 8px; }
+.legal h2 { font-size: clamp(20px, 1.8vw, 24px); letter-spacing: -.02em; margin: 40px 0 12px; padding-top: 28px; border-top: 1px solid var(--line); }
+.legal h2:first-of-type { border-top: 0; padding-top: 10px; }
+.legal p, .legal li { color: var(--mute); font-size: 16px; line-height: 1.75; }
+.legal p { margin: 0 0 12px; }
+.legal ul { list-style: none; padding: 0; margin: 0 0 14px; }
+.legal li { position: relative; padding-left: 26px; margin-bottom: 6px; }
+.legal li::before { content: ''; position: absolute; left: 4px; top: .72em; width: 7px; height: 7px; border-radius: 50%; background: var(--orange); }
+.legal a { color: var(--ink); text-underline-offset: 3px; }
+/* step cards: stop the gradient/photo repeating under the border (caused a light line at the bottom edge) */
+.step-img { background-repeat: no-repeat; background-origin: border-box; background-clip: border-box; border-color: rgba(255, 255, 255, .08); }
+
+/* ---------- logo loader (start-up splash + page changes) ---------- */
+.ldr { display: flex; flex-direction: column; align-items: center; gap: 18px; }
+.ldr-bird { width: 92px; animation: ldrflap .9s ease-in-out infinite alternate; filter: drop-shadow(0 12px 22px rgba(242, 101, 34, .35)); }
+.ldr-bird img { display: block; width: 100%; height: auto; }
+.ldr-word { height: 17px; width: auto; opacity: 0; animation: ldrword .6s var(--ease) .15s forwards; }
+.ldr-bar { position: relative; width: 140px; height: 3px; border-radius: 3px; background: rgba(255, 255, 255, .1); overflow: hidden; }
+.ldr-bar i { position: absolute; inset: 0; width: 40%; border-radius: 3px; background: var(--grad); animation: ldrbar 1.1s ease-in-out infinite; }
+@keyframes ldrflap { from { transform: translateY(4px) rotate(3deg); } to { transform: translateY(-8px) rotate(-5deg); } }
+@keyframes ldrword { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@keyframes ldrbar { from { transform: translateX(-110%); } to { transform: translateX(260%); } }
+
+#splash {
+  position: fixed; inset: 0; z-index: 200; display: grid; place-items: center; background: #0a0a0a;
+  transition: opacity .5s ease, visibility 0s .5s;
+  animation: splashout .5s ease 4s forwards; /* safety net if JS never runs */
+}
+#splash.done { opacity: 0; visibility: hidden; pointer-events: none; animation: none; }
+@keyframes splashout { to { opacity: 0; visibility: hidden; pointer-events: none; } }
+
+.page-ldr { min-height: 72vh; display: grid; place-items: center; padding: 120px 0 60px; animation: ldrin .3s ease both; }
+@keyframes ldrin { from { opacity: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  #splash { display: none; }
+  .ldr-word { opacity: 1; }
+}
+
+/* ---------- capital-letter headlines (cover + closing banner) ---------- */
+.hx h1, .ctaband h2 { text-transform: uppercase; letter-spacing: -.02em; line-height: 1; }
+.hx h1 { font-size: clamp(40px, 6.2vw, 88px); max-width: 14ch; }
+.ctaband h2 { font-size: clamp(30px, 3.8vw, 50px); }
+@media (max-width: 600px) { .hx h1 { font-size: clamp(34px, 10vw, 52px); } }
+
+/* ---------- closing banner: real photo colours, darkened (no orange tint) ---------- */
+.ctaband { background: #0a0a0a; border: 1px solid var(--line); }
+.ctaband::after { z-index: -2; background: var(--bgimg, none) center 45% / cover no-repeat; opacity: 1; mix-blend-mode: normal; }
+.ctaband::before { z-index: -1; background: linear-gradient(90deg, rgba(10, 10, 10, .92) 0%, rgba(10, 10, 10, .7) 50%, rgba(10, 10, 10, .45) 100%); }
+.ctaband .eyebrow { color: var(--orange); }
+.ctaband p { color: #d4d4d8; opacity: 1; }
+.ctaband .btn-line { border-color: rgba(255, 255, 255, .35); }
+@media (max-width: 900px) { .ctaband::before { background: linear-gradient(180deg, rgba(10, 10, 10, .9), rgba(10, 10, 10, .65)); } }

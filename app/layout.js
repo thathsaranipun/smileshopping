@@ -4,6 +4,9 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Tracking from '@/components/Tracking';
 import Reveal from '@/components/Reveal';
+import LogoLoader from '@/components/LogoLoader';
+
+const SPLASH_JS = `(function(){var el=document.getElementById('splash');if(!el)return;var d=0;function h(){if(d)return;d=1;setTimeout(function(){el.classList.add('done')},Math.max(0,700-performance.now()))}var c=document.querySelector('main [data-cover] img');if(c&&!c.complete){c.addEventListener('load',h);c.addEventListener('error',h)}else h();setTimeout(h,Math.max(0,1600-performance.now()))})();`;
 import { getSettings, SITE_URL } from '@/lib/data';
 
 export const metadata = {
@@ -35,12 +38,16 @@ export default async function RootLayout({ children }) {
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
       </head>
       <body>
+        <div id="splash" aria-hidden="true" suppressHydrationWarning><LogoLoader /></div>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />
         <CartProvider>
           <Header whatsapp={settings.whatsapp} />
           <main>{children}</main>
           <Footer whatsapp={settings.whatsapp} />
         </CartProvider>
+        {/* Hides the start-up logo screen without waiting for the app's JS: at least 0.7s, then once the cover photo
+            has loaded, never longer than 1.6s. (CSS also hides it after 4s if scripts are blocked.) */}
+        <script dangerouslySetInnerHTML={{ __html: SPLASH_JS }} />
         <Reveal />
         <Tracking />
       </body>

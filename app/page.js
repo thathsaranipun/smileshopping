@@ -26,13 +26,13 @@ const VALUES = [
 
 // [image, focus point] — the focus keeps each model's face in frame while it zooms.
 const HERO_SLIDES = [
-  ['/images/hero.jpg', 'center 35%'],
-  ['/images/hero-2.jpg', '63% 30%'], // bride on the steps (mirrored so she sits clear of the headline)
-  ['/images/hero-3.jpg', '70% 22%'], // bride seated by the dark window
-  ['/images/hero-4.jpg', '56% 40%'], // bride on the stone bridge
+  ['/images/hero/hero-1.jpg', 'center 35%'],
+  ['/images/hero/hero-2.jpg', '63% 30%'], // bride on the steps (mirrored so she sits clear of the headline)
+  ['/images/hero/hero-3.jpg', '70% 22%'], // bride seated by the dark window
+  ['/images/hero/hero-4.jpg', '56% 40%'], // bride on the stone bridge
 ];
 
-const STEP_IMG = ['/images/banner-returns.jpg', '/images/look-3.jpg', '/images/band-cta.jpg', '/images/coll-silk.jpg'];
+const STEP_IMG = ['/images/banners/returns.jpg', '/images/lookbook/look-3.jpg', '/images/sections/red-silk.jpg', '/images/collections/silk.jpg'];
 
 const STEPS = [
   ['Pick your colour', 'Browse both collections and open a colour to see every photo and the full fabric details.'],
@@ -42,11 +42,11 @@ const STEPS = [
 ];
 
 const LOOKS = [
-  ['/images/look-2.jpg', 'Bride in an orange embroidered lehenga with a net dupatta'],
-  ['/images/look-1.jpg', 'Model in a printed saree under a stone archway'],
-  ['/images/look-5.jpg', 'Emerald green blouse with a tie-back and lace border'],
-  ['/images/look-4.jpg', 'Model in a pastel lehenga by an old doorway'],
-  ['/images/band-cta.jpg', 'Close-up of a red silk saree with a zari border'],
+  ['/images/lookbook/look-2.jpg', 'Bride in an orange embroidered lehenga with a net dupatta'],
+  ['/images/lookbook/look-1.jpg', 'Model in a printed saree under a stone archway'],
+  ['/images/lookbook/look-5.jpg', 'Emerald green blouse with a tie-back and lace border'],
+  ['/images/lookbook/look-4.jpg', 'Model in a pastel lehenga by an old doorway'],
+  ['/images/sections/red-silk.jpg', 'Close-up of a red silk saree with a zari border'],
 ];
 
 const Arr = () => <span className="arr" aria-hidden="true">→</span>;
@@ -56,8 +56,8 @@ export default async function Home() {
   const from = zones.length ? Math.min(...zones.map(z => z.rate)) : 350;
   const wa = settings.whatsapp;
   const catInfo = {
-    'kanjivaram-silk': { tag: 'Silk', blurb: 'Silk zari lehenga, blouse and a Banarasi voni. Light, festive and ready to drape.', shot: '/images/coll-silk.jpg' },
-    'kanchi-cotton': { tag: 'Cotton', blurb: 'South-style Kanchi cotton with zari weaving. Stitched lehenga, blouse fabric and georgette dupatta.', shot: '/images/coll-cotton.jpg' },
+    'kanjivaram-silk': { tag: 'Silk', blurb: 'Silk zari lehenga, blouse and a Banarasi voni. Light, festive and ready to drape.', shot: '/images/collections/silk.jpg' },
+    'kanchi-cotton': { tag: 'Cotton', blurb: 'South-style Kanchi cotton with zari weaving. Stitched lehenga, blouse fabric and georgette dupatta.', shot: '/images/collections/cotton.jpg' },
   };
 
   return (
@@ -87,7 +87,7 @@ export default async function Home() {
       {/* 2. Who we are */}
       <section className="wrap sx who">
         <div className="who-img" data-rv>
-          <img src="/images/who.jpg" alt="Model in a crimson lehenga and net dupatta" loading="lazy" />
+          <img src="/images/sections/who.jpg" alt="Model in a crimson lehenga and net dupatta" loading="lazy" />
           <div className="stamp"><b>{products.length}</b><small>colours ready to ship</small></div>
         </div>
         <div data-rv>
@@ -121,7 +121,7 @@ export default async function Home() {
       </section>
 
       {/* 4. Stats band */}
-      <section className="stats" aria-label="Smile Shopping in numbers" style={{ '--bgimg': 'url(/images/band-stats.jpg)' }}>
+      <section className="stats" aria-label="Smile Shopping in numbers" style={{ '--bgimg': 'url(/images/sections/red-silk.jpg)' }}>
         <StatCounter value={products.length} suffix="+" label="Colours in stock" />
         <StatCounter value={cats.length} label="Collections" />
         <StatCounter value={25} label="Districts delivered" />
@@ -146,7 +146,7 @@ export default async function Home() {
             );
           })}
           <Link className="coll" href="/shop" data-rv style={{ '--d': '.16s' }}>
-            <img src="/images/coll-all.jpg" alt="" />
+            <img src="/images/collections/all.jpg" alt="" />
             <span className="pill">All</span>
             <h3>The full edit</h3>
             <p>Every half saree and lehenga in one place. Filter by collection, search a colour and order in a minute.</p>
@@ -229,14 +229,14 @@ export default async function Home() {
 
       {/* 11. Final CTA */}
       <section className="wrap" style={{ paddingBottom: 'clamp(72px, 9vw, 120px)' }}>
-        <div className="ctaband" data-rv style={{ '--bgimg': 'url(/images/banner-returns.jpg)' }}>
+        <div className="ctaband" data-rv style={{ '--bgimg': 'url(/images/sections/cta-hands.jpg)' }}>
           <div>
             <p className="eyebrow">Ready when you are</p>
             <h2>Find the lehenga for your day</h2>
             <p>Send us the colour you love on WhatsApp. We confirm stock, delivery and total in minutes.</p>
           </div>
           <div className="cta-row">
-            <a className="btn btn-light" href={waLink(wa, 'Hi Smile Shopping! I would like to order.')} target="_blank" rel="noopener"><WAIcon /> Order on WhatsApp</a>
+            <a className="btn btn-wa" href={waLink(wa, 'Hi Smile Shopping! I would like to order.')} target="_blank" rel="noopener"><WAIcon /> Order on WhatsApp</a>
             <Link className="btn btn-line" href="/shop">Browse colours <Arr /></Link>
           </div>
         </div>
