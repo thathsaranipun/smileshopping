@@ -24,6 +24,14 @@ const VALUES = [
   ['Real people', 'Questions about size, colour or delivery? A real person replies on WhatsApp within minutes.'],
 ];
 
+// [image, focus point] — the focus keeps each model's face in frame while it zooms.
+const HERO_SLIDES = [
+  ['/images/hero.jpg', 'center 35%'],
+  ['/images/hero-2.jpg', '63% 30%'], // bride on the steps (mirrored so she sits clear of the headline)
+  ['/images/hero-3.jpg', '70% 22%'], // bride seated by the dark window
+  ['/images/hero-4.jpg', '56% 40%'], // bride on the stone bridge
+];
+
 const STEP_IMG = ['/images/banner-returns.jpg', '/images/look-3.jpg', '/images/band-cta.jpg', '/images/coll-silk.jpg'];
 
 const STEPS = [
@@ -56,8 +64,13 @@ export default async function Home() {
     <>
       {/* 1. Hero */}
       <section className="hx" data-cover>
-        {/* Cover photo: replace public/images/hero.jpg to change it. */}
-        <div className="hx-bg" aria-hidden="true"><img src="/images/hero.jpg" alt="" /></div>
+        {/* Cover slideshow: crossfading photos with a slow zoom. Swap files in public/images/hero*.jpg to change them. */}
+        <div className="hx-bg hx-slides" aria-hidden="true">
+          {HERO_SLIDES.map(([src, pos], i) => (
+            <img key={src} src={src} alt="" style={{ '--pos': pos, animationDelay: `${i * 6}s` }} fetchPriority={i === 0 ? 'high' : 'low'} loading={i === 0 ? 'eager' : 'lazy'} />
+          ))}
+        </div>
+        <div className="hx-dots" aria-hidden="true">{HERO_SLIDES.map(([src], i) => <span key={src} style={{ '--d': `${i * 6}s` }} />)}</div>
         <div className="wrap hx-in">
           <div className="hx-copy">
             <p className="eyebrow">Ready stock · Sri Lanka · Island-wide delivery</p>
