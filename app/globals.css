@@ -1182,3 +1182,7 @@ a.ccard:hover { border-color: rgba(242, 101, 34, .5); }
 .ctaband p { color: #d4d4d8; opacity: 1; }
 .ctaband .btn-line { border-color: rgba(255, 255, 255, .35); }
 @media (max-width: 900px) { .ctaband::before { background: linear-gradient(180deg, rgba(10, 10, 10, .9), rgba(10, 10, 10, .65)); } }
+
+/* footer credit */
+.ftr .copy .dev a { display: inline; padding: 0; color: #fff; font-weight: 700; letter-spacing: .04em; text-decoration: none; }
+.ftr .copy .dev a:hover, .ftr .copy .dev a:active, .ftr .copy .dev a:focus, .ftr .copy .dev a:visited { color: #fff; text-decoration: none; }

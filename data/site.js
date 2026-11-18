@@ -10,4 +10,7 @@ export const SITE = {
 
   // Orders at or above this amount (Rs.) get free delivery. Set to 0 to turn free delivery off.
   free_over: 15000,
+
+  // "Developed by" credit at the bottom of the footer.
+  developer: { name: 'NYXO', url: 'https://nyxo.lk' },
 };

@@ -3,3 +3,6 @@ node_modules
 .env*.local
 .env
 .vercel
+
+# full-size source photos (kept locally, not deployed)
+_originals/

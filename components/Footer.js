@@ -14,8 +14,8 @@ export default function Footer({ whatsapp }) {
         <div className="wrap">
           <div className="ftr-g">
             <div>
-              <img className="bird" src="/bird.webp" alt="" />
-              <img className="word" src="/word.webp" alt="Smile Shopping" />
+              <img className="bird" src="/images/brand/bird.webp" alt="" />
+              <img className="word" src="/images/brand/word.webp" alt="Smile Shopping" />
               <p className="blurb">Kanjivaram silk half sarees and South-style Kanchi cotton lehengas, in ready stock and delivered to every district in Sri Lanka. Order in one WhatsApp message.</p>
               <a className="btn btn-light" href={hi} target="_blank" rel="noopener"><WAIcon /> Order on WhatsApp</a>
             </div>
@@ -46,7 +46,7 @@ export default function Footer({ whatsapp }) {
               </div>
             </div>
           </div>
-          <div className="copy"><span>© {new Date().getFullYear()} Smile Shopping · smileshopping.lk</span><span>Island-wide delivery · Sri Lanka</span></div>
+          <div className="copy"><span>© {new Date().getFullYear()} Smile Shopping · smileshopping.lk</span><span>Island-wide delivery · Sri Lanka</span><span className="dev">Developed by <a href={SITE.developer.url} target="_blank" rel="noopener">{SITE.developer.name}</a></span></div>
         </div>
       </footer>
 

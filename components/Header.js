@@ -102,8 +102,8 @@ export default function Header({ whatsapp }) {
       <header className={`hdr ${clear ? 'clear' : ''}`}>
         <div className="wrap hdr-in">
           <Link className="logo" href="/" aria-label="Smile Shopping home">
-            <img className="bird" src="/bird.webp" alt="" width="46" height="42" />
-            <img className="word" src="/word.webp" alt="Smile Shopping" width="189" height="17" />
+            <img className="bird" src="/images/brand/bird.webp" alt="" width="46" height="42" />
+            <img className="word" src="/images/brand/word.webp" alt="Smile Shopping" width="189" height="17" />
           </Link>
           <Suspense fallback={<nav className="nav" />}><Nav path={path} /></Suspense>
           <div className="hdr-act">
@@ -121,7 +121,7 @@ export default function Header({ whatsapp }) {
       </header>
       <Drawer
         id="site-menu" open={open} onClose={close} title="Menu"
-        head={<Link className="logo" href="/" onClick={close}><img className="bird" src="/bird.webp" alt="" width="40" height="36" /><img className="word" src="/word.webp" alt="Smile Shopping" width="150" height="14" /></Link>}
+        head={<Link className="logo" href="/" onClick={close}><img className="bird" src="/images/brand/bird.webp" alt="" width="40" height="36" /><img className="word" src="/images/brand/word.webp" alt="Smile Shopping" width="150" height="14" /></Link>}
         foot={<a className="btn btn-wa btn-block" href={waLink(whatsapp, 'Hi Smile Shopping!')} target="_blank" rel="noopener"><WAIcon /> Chat on WhatsApp</a>}
       >
         <Suspense fallback={null}><DrawerNav path={path} count={count} /></Suspense>

@@ -6,7 +6,7 @@ export default function ProductImage({ product, index = 0, priority = false }) {
   }
   return (
     <span className="ph" aria-label={product?.name || ''}>
-      <img src="/bird.webp" alt="" />
+      <img src="/images/brand/bird.webp" alt="" />
     </span>
   );
 }

@@ -11,17 +11,19 @@ the files in `data/` and the photos in `public/`.
 | WhatsApp number, email, opening hours, free-delivery amount | `data/site.js` |
 | Products, collections, prices, sold-out items | `data/products.mjs` (instructions at the top of the file) |
 | Delivery charges per district | `ZONES` at the bottom of `data/products.mjs` |
-| Product photos | `public/products/lehenga/<slug>-1.jpeg`, `-2.jpeg`, … |
+| Product photos | `public/products/<collection>/<slug>/` → `cover.jpg` (main image) + `1.jpeg`, `2.jpeg`, … |
+| Logo | `public/images/brand/bird.webp`, `word.webp` |
+| Full-size originals (not deployed) | `_originals/` |
 | Cover slideshow | `public/images/hero/hero-1.jpg` … `hero-4.jpg` |
 | Page banners, collection cards, lookbook, section photos | `public/images/banners`, `collections`, `lookbook`, `sections` |
 
 After editing, commit and push; Vercel rebuilds the site automatically.
 
 ### Add a product
-1. Put its photos in `public/products/lehenga/`, named `my-colour-1.jpeg`, `my-colour-2.jpeg`, …
+1. Make a folder `public/products/kanchi-cotton/my-colour/` (or `kanjivaram-silk/…`) with `cover.jpg` plus `1.jpeg`, `2.jpeg`, …
 2. Add a line to `ITEMS` in `data/products.mjs`:
    `['my-colour', 'My Colour Name', 'kanjivaram-silk', 2, false],`
-   (slug, colour name, collection, number of photos, show in favourites; optional 6th value = its own price).
+   (slug = folder name, colour name, collection, number of numbered photos, show in favourites; optional 6th value = its own price).
 
 ### Mark something sold out
 Add its slug to `SOLD_OUT` in `data/products.mjs`, e.g. `export const SOLD_OUT = ['red-navy'];`

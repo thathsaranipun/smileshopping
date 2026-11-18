@@ -5,8 +5,8 @@ export function ReceiptHead({ title }) {
   const d = new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
   return (
     <div className="r-head">
-      <img className="bird" src="/bird.webp" alt="" />
-      <img className="word" src="/word.webp" alt="Smile Shopping" />
+      <img className="bird" src="/images/brand/bird.webp" alt="" />
+      <img className="word" src="/images/brand/word.webp" alt="Smile Shopping" />
       <span className="mute">{title} · {d}</span>
     </div>
   );

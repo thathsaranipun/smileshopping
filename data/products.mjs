@@ -1,7 +1,8 @@
 // THE SHOP CATALOGUE — edit this file to add, remove or change products.
 //
 // Add a product:  add a line to ITEMS below: [slug, colour name, category slug, photo count, featured]
-// Its photos:     put them in public/products/lehenga/ named <slug>-1.jpeg, <slug>-2.jpeg, ...
+// Its photos:     make a folder public/products/<collection>/<slug>/ with cover.jpg (the main image)
+//                 plus 1.jpeg, 2.jpeg, ... ("photo count" = how many numbered photos)
 // Prices:         PRICES below sets the price per collection. To give one product its own price, add it as a
 //                 6th value on its line, e.g. ['red-navy', 'Red & Navy', 'kanjivaram-silk', 1, false, 5500]
 // Sold out:       add the product's slug to SOLD_OUT (it stays on the site, marked "Sold out").
@@ -50,7 +51,8 @@ export const CATEGORIES = [
   { id: 2, name: 'Kanchi Cotton Lehengas', slug: 'kanchi-cotton', sort: 2, bg: '#14110f', w1: '#211a14', w2: '#2e2218' },
 ];
 
-const img = (slug, n) => Array.from({ length: n }, (_, i) => `/products/lehenga/${slug}-${i + 1}.jpeg`);
+// Photos live in public/products/<collection>/<slug>/: cover.jpg first (shop card + first gallery image), then 1.jpeg, 2.jpeg …
+const img = (cat, slug, n) => [`/products/${cat}/${slug}/cover.jpg`, ...Array.from({ length: n }, (_, i) => `/products/${cat}/${slug}/${i + 1}.jpeg`)];
 
 // [slug, colour name, category slug, photo count, featured, (optional) own price]
 const ITEMS = [
@@ -104,7 +106,7 @@ export const PRODUCTS = ITEMS.map(([slug, colour, cat, n, featured, ownPrice], i
     stock: SOLD_OUT.includes(slug) ? 0 : 10,
     variant_label: 'Colour',
     variants: [],
-    images: img(slug, n),
+    images: img(cat, slug, n),
     featured,
     active: true,
     category_id: category.id,

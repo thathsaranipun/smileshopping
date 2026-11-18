@@ -47,7 +47,7 @@ export default function CheckoutView({ zones, settings }) {
       <section className="wrap">
         <div className="flow"><span className="done">1 Cart</span><span className="done">2 Details</span><span className="done">3 WhatsApp</span><span className="on">4 Done</span></div>
         <div className="okhead">
-          <div className="okmark"><img src="/bird.webp" alt="" /></div>
+          <div className="okmark"><img src="/images/brand/bird.webp" alt="" /></div>
           <h1>Thank you, {sent.first}!</h1>
           <p>Your order <span className="oid">{sent.ref}</span> is ready in WhatsApp. Press <b>send</b> there and we&apos;ll confirm stock and delivery in minutes. Pay {money(sent.total)} in cash when it arrives.</p>
         </div>
