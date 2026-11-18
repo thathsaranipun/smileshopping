@@ -1,11 +1,10 @@
 'use client';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useCart } from '@/components/CartProvider';
 import ProductImage from '@/components/ProductImage';
 import { WAIcon } from '@/components/icons';
-import { money, discount, plumeStyle, waLink } from '@/lib/format';
+import { money, discount, plumeStyle, waLink, orderMessage } from '@/lib/format';
 import { track } from '@/lib/track';
 
 /* Plain text from the admin: "Key : Value" lines become a spec table, short lines without a colon become headings. */
@@ -33,7 +32,6 @@ function Description({ text }) {
 
 export default function BuyBox({ p, whatsapp, deliveryFrom }) {
   const { add } = useCart();
-  const router = useRouter();
   const [img, setImg] = useState(0);
   const [variant, setVariant] = useState(p.variants?.[0] || null);
   const [qty, setQty] = useState(1);
@@ -47,6 +45,13 @@ export default function BuyBox({ p, whatsapp, deliveryFrom }) {
     track('ViewContent', { content_ids: [p.slug], content_type: 'product', value: p.price, currency: 'LKR' });
     return () => document.body.classList.remove('pdp');
   }, [p.slug, p.price]);
+
+  // Buy this one product straight away: opens WhatsApp with the item, option, qty and price filled in.
+  const orderWA = () => {
+    const msg = orderMessage({ items: [{ name: p.name, variant, qty, price: p.price }], subtotal: p.price * qty, delivery: null });
+    track('Lead', { content_ids: [p.slug], value: p.price * qty, currency: 'LKR' });
+    window.open(waLink(whatsapp, `${msg}\n\nProduct: ${location.href}`), '_blank', 'noopener');
+  };
 
   const addIt = silent => {
     const ok = add(p, variant, qty, silent);
@@ -103,8 +108,8 @@ export default function BuyBox({ p, whatsapp, deliveryFrom }) {
           </div>
 
           <div className="buyrow">
-            <button className="btn btn-brand" type="button" disabled={out} onClick={() => addIt(false)}>Add to cart</button>
-            <button className="btn btn-ink" type="button" disabled={out} onClick={() => { if (addIt(true)) router.push('/checkout'); }}>Buy now</button>
+            <button className="btn btn-wa wa-big" type="button" disabled={out} onClick={orderWA}><WAIcon /> Order on WhatsApp</button>
+            <button className="btn btn-line wa-big" type="button" disabled={out} onClick={() => addIt(false)}>Add to cart</button>
           </div>
 
           <a className="wa-cta" href={waLink(whatsapp, `Hi Smile Shopping! I have a question about: ${p.name} (${money(p.price)})`)} target="_blank" rel="noopener">
@@ -114,7 +119,7 @@ export default function BuyBox({ p, whatsapp, deliveryFrom }) {
 
           <div className="dbox">
             <div><span>🚚</span><span>Colombo in 1–2 working days, rest of the island in 2–5 days. From {money(deliveryFrom)}.</span></div>
-            <div><span>💳</span><span>Pay securely by card online, or cash on delivery.</span></div>
+            <div><span>💬</span><span>Order on WhatsApp and pay cash on delivery. No card needed. <Link href="/info/how-to-order">How it works</Link></span></div>
             <div><span>↩︎</span><span>7-day returns on unused items. <Link href="/info/returns">Details</Link></span></div>
           </div>
           {p.description && <Description text={p.description} />}
@@ -123,7 +128,7 @@ export default function BuyBox({ p, whatsapp, deliveryFrom }) {
 
       <div className="buybar">
         <span className="bb-p">{money(p.price)}</span>
-        <button className="btn btn-brand" type="button" disabled={out} onClick={() => addIt(false)}>{out ? 'Sold out' : 'Add to cart'}</button>
+        <button className="btn btn-wa" type="button" disabled={out} onClick={orderWA}>{out ? 'Sold out' : <><WAIcon /> Order on WhatsApp</>}</button>
       </div>
     </>
   );

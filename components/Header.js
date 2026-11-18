@@ -7,36 +7,60 @@ import { WAIcon, SearchIcon, CartIcon, MenuIcon, ChevronIcon } from './icons';
 import Drawer from './Drawer';
 import { waLink } from '@/lib/format';
 
-const NAV = [
-  ['/', 'Home'], ['/shop', 'Shop all'], ['/shop?cat=kanjivaram-silk', 'Silk half sarees'],
-  ['/shop?cat=kanchi-cotton', 'Cotton lehengas'], ['/info/delivery', 'Delivery'], ['/info/contact', 'Contact'],
-];
-const HELP = [['/info/payment', 'Payment information'], ['/info/returns', 'Returns & refunds'], ['/info/about', 'About us']];
+const SHOP = [['/shop', 'Shop all'], ['/shop?cat=kanjivaram-silk', 'Silk half sarees'], ['/shop?cat=kanchi-cotton', 'Cotton lehengas']];
+const NAV = [['/', 'Home'], ['/info/about', 'About'], ['/info/how-to-order', 'How to order'], ['/info/contact', 'Contact']];
+const HELP = [['/info/delivery', 'Delivery information'], ['/info/returns', 'Returns & refunds'], ['/info/about', 'About us']];
 
 function useHere(path) {
   const cat = useSearchParams().get('cat');
   return path + (cat ? `?cat=${cat}` : '');
 }
 
+const NavLink = ({ h, l, here }) => <Link href={h} className={here === h ? 'on' : ''} aria-current={here === h ? 'page' : undefined}>{l}</Link>;
+
 function Nav({ path }) {
   const here = useHere(path);
+  const [open, setOpen] = useState(false);
+  const box = useRef();
+  useEffect(() => setOpen(false), [here]);
+  useEffect(() => {
+    if (!open) return;
+    const out = e => { if (!box.current?.contains(e.target)) setOpen(false); };
+    const esc = e => e.key === 'Escape' && setOpen(false);
+    document.addEventListener('pointerdown', out); document.addEventListener('keydown', esc);
+    return () => { document.removeEventListener('pointerdown', out); document.removeEventListener('keydown', esc); };
+  }, [open]);
+  const inShop = path.startsWith('/shop');
   return (
     <nav className="nav" aria-label="Main">
-      {NAV.map(([h, l]) => <Link key={h} href={h} className={here === h ? 'on' : ''} aria-current={here === h ? 'page' : undefined}>{l}</Link>)}
+      <NavLink h="/" l="Home" here={here} />
+      <div className={`nav-dd ${open ? 'open' : ''}`} ref={box} onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
+        <button type="button" className={inShop ? 'on' : ''} aria-expanded={open} aria-haspopup="true" onClick={() => setOpen(o => !o)}>
+          Shop <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
+        </button>
+        <div className="nav-menu">
+          {SHOP.map(([h, l]) => <NavLink key={h} h={h} l={l} here={here} />)}
+        </div>
+      </div>
+      {NAV.slice(1).map(([h, l]) => <NavLink key={h} h={h} l={l} here={here} />)}
     </nav>
   );
 }
 
 function DrawerNav({ path, count }) {
   const here = useHere(path);
+  const row = ([h, l], sub) => (
+    <Link key={h} href={h} className={`${here === h ? 'on' : ''} ${sub ? 'sub' : ''}`} aria-current={here === h ? 'page' : undefined}>
+      {l}<ChevronIcon />
+    </Link>
+  );
   return (
     <>
       <nav className="drw-nav" aria-label="Mobile">
-        {NAV.map(([h, l]) => (
-          <Link key={h} href={h} className={here === h ? 'on' : ''} aria-current={here === h ? 'page' : undefined}>
-            {l}<ChevronIcon />
-          </Link>
-        ))}
+        {row(NAV[0])}
+        {row(SHOP[0])}
+        {SHOP.slice(1).map(x => row(x, true))}
+        {NAV.slice(1).map(x => row(x))}
       </nav>
       <div className="drw-quick">
         <Link href="/shop?focus=1"><SearchIcon /> Search</Link>
@@ -54,6 +78,7 @@ export default function Header({ whatsapp }) {
   const { count, bump } = useCart();
   const path = usePathname();
   const [open, setOpen] = useState(false);
+  const [clear, setClear] = useState(false);
   const close = useCallback(() => setOpen(false), []);
   const cc = useRef();
 
@@ -63,10 +88,19 @@ export default function Header({ whatsapp }) {
     cc.current.classList.remove('bump'); void cc.current.offsetWidth; cc.current.classList.add('bump');
   }, [bump]);
 
+  // Over a full-width cover image the header is see-through; it turns solid black once the page scrolls.
+  useEffect(() => {
+    const onScroll = () => setClear(!!document.querySelector('main > [data-cover]:first-child') && window.scrollY < 40);
+    onScroll();
+    const t = setTimeout(onScroll, 50);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => { clearTimeout(t); window.removeEventListener('scroll', onScroll); };
+  }, [path]);
+
   if (path.startsWith('/admin')) return null;
   return (
     <>
-      <header className="hdr">
+      <header className={`hdr ${clear ? 'clear' : ''}`}>
         <div className="wrap hdr-in">
           <Link className="logo" href="/" aria-label="Smile Shopping home">
             <img className="bird" src="/bird.webp" alt="" width="46" height="42" />

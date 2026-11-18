@@ -123,7 +123,8 @@ declare
   it jsonb; pr record; qty int; sub int := 0; del int; z record; fo int;
   lines jsonb := '[]'::jsonb; o_token uuid; method text;
 begin
-  method := coalesce(p->>'pay_method','online');
+  -- Orders are confirmed on WhatsApp and paid on delivery; there is no online payment.
+  method := coalesce(p->>'pay_method','cod');
   if method not in ('online','cod') then raise exception 'Invalid payment method'; end if;
   if length(trim(coalesce(p->>'customer_name',''))) < 2 then raise exception 'Enter your full name'; end if;
   if coalesce(p->>'mobile','') !~ '^0[0-9]{9}$' then raise exception 'Enter a 10-digit mobile number starting with 0'; end if;
@@ -168,38 +169,13 @@ language sql stable security definer set search_path = public as $$
   from orders where token = t;
 $$;
 
--- ---------- DEMO payment result (replace with the real gateway's server callback before launch) ----------
-create or replace function public.demo_payment(t uuid, success boolean) returns void
-language plpgsql security definer set search_path = public as $$
-declare o record;
-begin
-  select * into o from orders where token = t and pay_method = 'online' and pay_status in ('Unpaid','Failed');
-  if not found then return; end if;
-  if success then
-    update orders set pay_status = 'Paid', status = 'Confirmed' where id = o.id;
-    update products pp set stock = greatest(0, pp.stock - (l->>'qty')::int)
-    from jsonb_array_elements(o.items) l where pp.id = (l->>'product_id')::uuid;
-  else
-    update orders set pay_status = 'Failed' where id = o.id;
-  end if;
-end $$;
-
-create or replace function public.switch_to_cod(t uuid) returns void
-language plpgsql security definer set search_path = public as $$
-declare o record;
-begin
-  select * into o from orders where token = t and pay_status in ('Unpaid','Failed');
-  if not found then return; end if;
-  update orders set pay_method = 'cod', pay_status = 'COD', status = 'Confirmed' where id = o.id;
-  update products pp set stock = greatest(0, pp.stock - (l->>'qty')::int)
-  from jsonb_array_elements(o.items) l where pp.id = (l->>'product_id')::uuid;
-end $$;
+-- The old sandbox payment functions are gone: orders go through WhatsApp now.
+drop function if exists public.demo_payment(uuid, boolean);
+drop function if exists public.switch_to_cod(uuid);
 
 revoke all on function public.place_order(jsonb) from public;
 grant execute on function public.place_order(jsonb) to anon, authenticated;
 grant execute on function public.get_order(uuid) to anon, authenticated;
-grant execute on function public.demo_payment(uuid, boolean) to anon, authenticated;
-grant execute on function public.switch_to_cod(uuid) to anon, authenticated;
 grant execute on function public.is_admin() to anon, authenticated;
 
 -- ---------- product photo storage ----------

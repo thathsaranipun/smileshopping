@@ -17,7 +17,10 @@ Storefront (home, shop, search, product, cart, checkout, order tracking, WhatsAp
 ## Local dev
 `cp .env.example .env.local`, fill in keys, `npm install`, `npm run dev`.
 
-## Before launch
-- Replace the sandbox payment page (`app/pay/[token]`, `demo_payment` SQL function) with the real gateway
-  (PayHere: redirect + server-side notify URL that marks the order Paid).
+## How ordering works (no payment gateway)
+- **Product page → "Order on WhatsApp"** opens WhatsApp with that product, option, qty and price filled in.
+- **Cart → checkout → "Send order on WhatsApp"** saves the order (it appears in `/admin` with its order number),
+  then opens WhatsApp with the full order, delivery address and a tracking link. The customer pays cash on delivery.
+- The WhatsApp number comes from **Admin → Settings** (format `94771234567`).
+- Existing database: run `supabase/004_whatsapp_orders.sql` once to remove the old sandbox payment functions.
 - Prices, delivery and stock are always calculated in the database (`place_order`), never trusted from the browser.

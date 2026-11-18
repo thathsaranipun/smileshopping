@@ -1,5 +1,7 @@
 import Link from 'next/link';
-import ProductCard from '@/components/ProductCard';
+import SectionHeading from '@/components/SectionHeading';
+import StatCounter from '@/components/StatCounter';
+import CallbackForm from '@/components/CallbackForm';
 import { WAIcon } from '@/components/icons';
 import { getCategories, getProducts, getSettings, getZones } from '@/lib/data';
 import { money, waLink } from '@/lib/format';
@@ -7,91 +9,132 @@ import { money, waLink } from '@/lib/format';
 const COLOURS = ['Silver & Royal Purple', 'Peacock Teal', 'Black & Crimson', 'Tangerine', 'Powder Blue', 'Rani Pink', 'Maroon & Green', 'Sage & Sky', 'Lavender & Wine', 'Mustard & Black', 'Royal Blue', 'Plum Wine'];
 
 const FAQ = [
+  ['How do I place an order?', 'Add your colours to the cart and tap "Send order on WhatsApp", or tap "Order on WhatsApp" on any product. Your order arrives in our chat with the items, total and delivery details already filled in. We confirm it there within minutes.'],
+  ['How do I pay?', 'There is no online payment. Pay the rider in cash when your order arrives. If you would rather pay another way, tell us on WhatsApp when we confirm your order.'],
   ['What is included with a half saree?', 'The Kanjivaram silk set comes with 3.5 m of lehenga fabric, about 0.8 m of blouse fabric and a 2.2 m Banarasi voni (dupatta). The Kanchi cotton lehenga comes stitched, with an unstitched blouse, a georgette dupatta and a drawstring.'],
   ['What waist size does the lehenga fit?', 'The stitched Kanchi cotton lehenga supports a waist up to 42 inches, with a 41 inch length and a 3 metre flair. It closes with a drawstring and zip.'],
-  ['Is it ready stock?', 'Yes. Every colour on the site is in ready stock in Sri Lanka and ships within 1–2 working days of your order.'],
-  ['How do I pay?', 'Pay securely online by card, or choose cash on delivery and pay the rider when your order arrives.'],
+  ['Is it ready stock?', 'Yes. Every colour on the site is in ready stock in Sri Lanka and ships within 1–2 working days of your order being confirmed.'],
   ['Will the colour match the photos?', 'We photograph the actual pieces, and the quality is the same as in the video. If you want to see a colour in daylight, message us on WhatsApp and we will send a quick clip.'],
 ];
 
-const pick = (ps, slug) => ps.find(p => p.slug.endsWith(slug)) || ps[0];
+const VALUES = [
+  ['Pure quality', 'The same fabric, zari and colours you see in our photos and videos. No surprises when the parcel opens.'],
+  ['Ready stock', 'Every colour is here in Sri Lanka, packed and dispatched within 1–2 working days of confirmation.'],
+  ['Island-wide', 'Delivery to all 25 districts with clear rates by district, shown before you send your order.'],
+  ['Real people', 'Questions about size, colour or delivery? A real person replies on WhatsApp within minutes.'],
+];
+
+const STEP_IMG = ['/images/banner-returns.jpg', '/images/look-3.jpg', '/images/band-cta.jpg', '/images/coll-silk.jpg'];
+
+const STEPS = [
+  ['Pick your colour', 'Browse both collections and open a colour to see every photo and the full fabric details.'],
+  ['Send on WhatsApp', 'Tap "Order on WhatsApp". Your items, total and address go to us in one ready-made message.'],
+  ['We confirm & pack', 'We reply to confirm stock and delivery, then pack your set with care the same or next day.'],
+  ['Pay on delivery', 'Your parcel arrives in 1–5 working days. Pay the rider in cash when it reaches your door.'],
+];
+
+const LOOKS = [
+  ['/images/look-2.jpg', 'Bride in an orange embroidered lehenga with a net dupatta'],
+  ['/images/look-1.jpg', 'Model in a printed saree under a stone archway'],
+  ['/images/look-5.jpg', 'Emerald green blouse with a tie-back and lace border'],
+  ['/images/look-4.jpg', 'Model in a pastel lehenga by an old doorway'],
+  ['/images/band-cta.jpg', 'Close-up of a red silk saree with a zari border'],
+];
+
+const Arr = () => <span className="arr" aria-hidden="true">→</span>;
 
 export default async function Home() {
   const [cats, products, settings, zones] = await Promise.all([getCategories(), getProducts(), getSettings(), getZones()]);
-  const featured = products.filter(p => p.featured);
   const from = zones.length ? Math.min(...zones.map(z => z.rate)) : 350;
   const wa = settings.whatsapp;
-  const img = (slug, i = 0) => pick(products, slug)?.images?.[i] || '/icon.png';
-  const heroShots = [img('purple-peacock-teal'), img('magenta-midnight-navy'), img('red-navy')];
-  const mosaic = ['mustard-black', 'teal-navy', 'sunflower-green', 'ash-grey-navy', 'magenta-midnight-navy', 'emerald-navy', 'navy-marigold', 'royal-blue']
-    .map(s => pick(products, s)).filter(Boolean);
   const catInfo = {
-    'kanjivaram-silk': { pill: 'Rs. 4,900 · 12 colours', blurb: 'Silk zari lehenga, blouse and a Banarasi voni. Light, festive and ready to drape.', shot: img('silver-royal-purple', 1) },
-    'kanchi-cotton': { pill: 'Rs. 7,200 · Stitched', blurb: 'South-style Kanchi cotton with zari weaving. Stitched lehenga, blouse fabric and georgette dupatta.', shot: img('maroon-bottle-green', 1) },
+    'kanjivaram-silk': { tag: 'Silk', blurb: 'Silk zari lehenga, blouse and a Banarasi voni. Light, festive and ready to drape.', shot: '/images/coll-silk.jpg' },
+    'kanchi-cotton': { tag: 'Cotton', blurb: 'South-style Kanchi cotton with zari weaving. Stitched lehenga, blouse fabric and georgette dupatta.', shot: '/images/coll-cotton.jpg' },
   };
 
   return (
     <>
-      <section className="hero">
-        <div className="hero-bg" aria-hidden="true">{heroShots.map((s, i) => <img key={i} src={s} alt="" />)}</div>
-        <div className="hero-in">
-          <p className="eyebrow">New · 12 colours in ready stock</p>
-          <h1>Heritage woven in silk &amp; zari</h1>
-          <p className="lede">Kanjivaram silk half sarees and South-style Kanchi cotton lehengas, crafted with love and delivered to all 25 districts of Sri Lanka.</p>
-          <div className="cta-row">
-            <Link className="btn btn-light" href="/shop">Shop the collection <span className="arrow">→</span></Link>
-            <a className="btn" href={waLink(wa, 'Hi Smile Shopping! I need help choosing a lehenga.')} target="_blank" rel="noopener"><WAIcon /> Ask on WhatsApp</a>
+      {/* 1. Hero */}
+      <section className="hx" data-cover>
+        {/* Cover photo: replace public/images/hero.jpg to change it. */}
+        <div className="hx-bg" aria-hidden="true"><img src="/images/hero.jpg" alt="" /></div>
+        <div className="wrap hx-in">
+          <div className="hx-copy">
+            <p className="eyebrow">Ready stock · Sri Lanka · Island-wide delivery</p>
+            <h1>Timeless elegance in <em>every drape</em></h1>
+            <p className="lede">Kanjivaram silk half sarees and South-style Kanchi cotton lehengas. Pick your colour, send your order on WhatsApp and pay when it arrives.</p>
+            <div className="cta-row">
+              <Link className="btn btn-light" href="/shop">Shop the collection <Arr /></Link>
+              <a className="btn btn-wa" href={waLink(wa, 'Hi Smile Shopping! I would like to order.')} target="_blank" rel="noopener"><WAIcon /> Order on WhatsApp</a>
+            </div>
           </div>
         </div>
-        <span className="scrollcue" aria-hidden="true" />
       </section>
 
-      <section className="wrap split">
-        <div>
-          <p className="eyebrow">Our collection</p>
+      {/* 2. Who we are */}
+      <section className="wrap sx who">
+        <div className="who-img" data-rv>
+          <img src="/images/who.jpg" alt="Model in a crimson lehenga and net dupatta" loading="lazy" />
+          <div className="stamp"><b>{products.length}</b><small>colours ready to ship</small></div>
+        </div>
+        <div data-rv>
+          <p className="eyebrow">Who we are</p>
           <h2>Crafted with love, adorned with heritage</h2>
-          <p>A South-style lehenga is more than attire. It is a piece of art that carries the essence of South Indian culture: rich zari borders, deep jewel tones and a flair that moves beautifully at every function, pooja and festival.</p>
-          <p>Every set is 100% pure quality, the same as you see in our photos and videos, and ready to ship today.</p>
-          <Link className="btn btn-brand" href="/shop" style={{ marginTop: 18 }}>Explore all colours <span className="arrow">→</span></Link>
-        </div>
-        <div className="duo">
-          <div className="split-img"><img src={img('olive-black')} alt="Kanchi cotton lehenga in olive and black" /></div>
-          <div className="split-img">
-            <img src={img('black-crimson')} alt="Kanjivaram silk half saree in black and crimson" />
-            <div className="stamp"><b>{products.length}</b><small>colours in ready stock</small></div>
+          <p>A South-style lehenga is more than attire. It carries the essence of South Indian culture: rich zari borders, deep jewel tones and a flair that moves beautifully at every function, pooja and festival.</p>
+          <p>Smile Shopping keeps it simple: fair prices, real photos, fast delivery and a real person on WhatsApp.</p>
+          <ul className="checks">
+            <li>100% pure quality, as in our videos</li>
+            <li>Ready stock in Sri Lanka</li>
+            <li>Order in one WhatsApp message</li>
+            <li>Cash on delivery, island-wide</li>
+          </ul>
+          <div className="cta-row" style={{ marginTop: 0 }}>
+            <Link className="btn btn-light" href="/info/about">More about us <Arr /></Link>
+            <Link className="btn btn-line" href="/info/how-to-order">How to order</Link>
           </div>
         </div>
       </section>
 
-      <section className="marquee" aria-label="Colours available">
-        <div className="marquee-track">
-          {[0, 1].map(k => <div key={k} aria-hidden={k === 1}>{COLOURS.map(c => <span key={c}>{c}</span>)}</div>)}
+      {/* 3. Values */}
+      <section className="wrap sx" style={{ paddingTop: 0 }}>
+        <SectionHeading eyebrow="Our promise" title="Why Smile Shopping?" />
+        <div className="values">
+          {VALUES.map(([t, d], i) => (
+            <div key={t} className="card vcard" data-rv style={{ '--d': `${i * 0.08}s` }}>
+              <span className="num">0{i + 1}</span><h3>{t}</h3><p>{d}</p>
+            </div>
+          ))}
         </div>
       </section>
 
-      <section className="wrap sec" style={{ paddingTop: 120 }}>
-        <div className="center" style={{ marginBottom: 54 }}>
-          <p className="eyebrow">What we offer</p>
-          <h2 style={{ marginTop: 18 }}>Shop by collection</h2>
-          <p className="lead" style={{ marginTop: 20 }}>Two signature styles, each in a palette of jewel tones with hand-finished zari borders.</p>
-        </div>
+      {/* 4. Stats band */}
+      <section className="stats" aria-label="Smile Shopping in numbers" style={{ '--bgimg': 'url(/images/band-stats.jpg)' }}>
+        <StatCounter value={products.length} suffix="+" label="Colours in stock" />
+        <StatCounter value={cats.length} label="Collections" />
+        <StatCounter value={25} label="Districts delivered" />
+        <StatCounter value={7} label="Day easy returns" />
+      </section>
+
+      {/* 5. Collections */}
+      <section className="wrap sx">
+        <SectionHeading eyebrow="What we offer" title="Shop by collection" intro="Two signature styles, each in a palette of jewel tones with hand-finished zari borders." />
         <div className="collections">
-          {cats.map(c => {
+          {cats.map((c, i) => {
             const n = products.filter(p => p.category_id === c.id).length;
-            const info = catInfo[c.slug] || { pill: `${n} pieces`, blurb: '', shot: products.find(p => p.category_id === c.id)?.images?.[0] };
+            const info = catInfo[c.slug] || { tag: 'Collection', blurb: '', shot: products.find(p => p.category_id === c.id)?.images?.[0] };
             return (
-              <Link key={c.id} className="coll" href={`/shop?cat=${c.slug}`}>
+              <Link key={c.id} className="coll" href={`/shop?cat=${c.slug}`} data-rv style={{ '--d': `${i * 0.08}s` }}>
                 {info.shot && <img src={info.shot} alt="" />}
-                <span className="pill">{info.pill}</span>
+                <span className="pill">{info.tag}</span>
                 <h3>{c.name}</h3>
                 {info.blurb && <p>{info.blurb}</p>}
                 <span className="go">Explore {n} colours <span className="arrow">→</span></span>
               </Link>
             );
           })}
-          <Link className="coll" href="/shop">
-            <img src={img('sage-sky-blue')} alt="" />
-            <span className="pill">Ready stock</span>
+          <Link className="coll" href="/shop" data-rv style={{ '--d': '.16s' }}>
+            <img src="/images/coll-all.jpg" alt="" />
+            <span className="pill">All</span>
             <h3>The full edit</h3>
             <p>Every half saree and lehenga in one place. Filter by collection, search a colour and order in a minute.</p>
             <span className="go">View everything <span className="arrow">→</span></span>
@@ -99,73 +142,23 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="wrap split rev">
-        <div className="split-img"><img src={img('peacock-teal-rani-pink')} alt="Peacock teal and rani pink half saree" /></div>
-        <div>
-          <p className="eyebrow">Why it feels special</p>
-          <h2>Made for every celebration</h2>
-          <h3>Pure Kanjivaram zari</h3>
-          <p>Woven zari borders with temple and peacock motifs that catch the light, paired with a Banarasi voni for that classic South Indian drape.</p>
-          <h3>Comfort in Kanchi cotton</h3>
-          <p>A stitched lehenga with canvas lining and a micro cotton inner, so it holds its shape through long ceremonies and still feels light.</p>
-        </div>
-      </section>
-
-      <section className="wrap sec">
-        <div className="sec-head">
-          <div><p className="eyebrow">The edit</p><h2 style={{ marginTop: 18 }}>This week&apos;s favourites</h2></div>
-          <Link href="/shop">View all {products.length}</Link>
-        </div>
-        {products.length
-          ? <div className="grid">{(featured.length ? featured : products).slice(0, 8).map(p => <ProductCard key={p.id} p={p} />)}</div>
-          : <p className="empty"><b>Products are on their way</b>Add your first product from the admin dashboard.</p>}
-      </section>
-
-      <section className="statement">
-        <div className="wrap statement-g">
-          <div>
-            <p className="eyebrow">Smile Shopping</p>
-            <h2><span>Drape the</span><span className="grad-text">tradition.</span><span>Own the day.</span></h2>
-            <Link className="btn btn-light" href="/shop" style={{ marginTop: 34 }}>Find your colour <span className="arrow">→</span></Link>
-          </div>
-          <div className="fan" aria-hidden="true">
-            {['plum-wine', 'sunflower-green', 'black-gold'].map(s => <img key={s} src={img(s)} alt="" />)}
-          </div>
-        </div>
-      </section>
-
-      <section className="wrap sec" style={{ paddingTop: 110 }}>
-        <div className="sec-head">
-          <div><p className="eyebrow">Lookbook</p><h2 style={{ marginTop: 18 }}>Seen in the wild</h2></div>
-          <Link href="/shop">Shop the looks</Link>
-        </div>
-        <div className="mosaic">
-          {mosaic.map(p => (
-            <Link key={p.id} href={`/product/${p.slug}`} data-name={p.name}><img src={p.images[0]} alt={p.name} loading="lazy" /></Link>
+      {/* Lookbook */}
+      <section className="wrap sx" style={{ paddingTop: 0 }}>
+        <SectionHeading eyebrow="Lookbook" title="Made for every celebration" intro="Weddings, poojas, festivals and family functions. A drape for every moment." />
+        <div className="look">
+          {LOOKS.map(([src, alt], i) => (
+            <figure key={src} className={`look-i look-${i + 1}`} data-rv style={{ '--d': `${i * 0.06}s` }}>
+              <img src={src} alt={alt} loading="lazy" />
+            </figure>
           ))}
         </div>
       </section>
 
-      <section className="wrap sec" style={{ paddingTop: 110 }}>
-        <div className="center" style={{ marginBottom: 54 }}>
-          <p className="eyebrow">Why choose us</p>
-          <h2 style={{ marginTop: 18 }}>Why Smile Shopping?</h2>
-        </div>
-        <div className="features">
-          <div className="feat"><i>✦</i><h3>Pure quality</h3><p>The same fabric, zari and colours you see in our photos and videos. No surprises.</p></div>
-          <div className="feat"><i>⚡</i><h3>Ready stock</h3><p>Every colour is here in Sri Lanka, packed and dispatched within 1–2 working days.</p></div>
-          <div className="feat"><i>🚚</i><h3>Island-wide</h3><p>Delivery to all 25 districts from {money(from)}{settings.free_over > 0 && <>, free over {money(settings.free_over)}</>}.</p></div>
-          <div className="feat"><i>💬</i><h3>Real people</h3><p>Questions about size, colour or delivery? Our team replies on WhatsApp within minutes.</p></div>
-        </div>
-      </section>
-
-      <section className="wrap sec" style={{ paddingTop: 110 }}>
-        <div className="center" style={{ marginBottom: 54 }}>
-          <p className="eyebrow">Pricing</p>
-          <h2 style={{ marginTop: 18 }}>Choose your set</h2>
-        </div>
+      {/* 7. Sets */}
+      <section className="wrap sx" style={{ paddingTop: 0 }}>
+        <SectionHeading center eyebrow="Pricing" title="Choose your set" />
         <div className="packs">
-          <div className="pack">
+          <div className="pack" data-rv>
             <p className="eyebrow">Kanjivaram silk</p>
             <h3>Silk zari half saree</h3>
             <div className="amt">Rs. 4,900<small>/ set</small></div>
@@ -175,9 +168,9 @@ export default async function Home() {
               <li>Banarasi voni (dupatta): 2.20 meters</li>
               <li>12 colours · 550 g · ready stock</li>
             </ul>
-            <Link className="btn btn-light" href="/shop?cat=kanjivaram-silk">Shop silk half sarees <span className="arrow">→</span></Link>
+            <Link className="btn btn-line" href="/shop?cat=kanjivaram-silk">Shop silk half sarees <Arr /></Link>
           </div>
-          <div className="pack hot">
+          <div className="pack hot" data-rv style={{ '--d': '.08s' }}>
             <span className="ribbon">Most loved</span>
             <p className="eyebrow">Kanchi cotton</p>
             <h3>Stitched lehenga set</h3>
@@ -188,51 +181,50 @@ export default async function Home() {
               <li>Georgette dupatta with lace border: 2.5 meters</li>
               <li>Drawstring included · 0.9 kg · ready stock</li>
             </ul>
-            <Link className="btn btn-brand" href="/shop?cat=kanchi-cotton">Shop cotton lehengas <span className="arrow">→</span></Link>
+            <Link className="btn btn-light" href="/shop?cat=kanchi-cotton">Shop cotton lehengas <Arr /></Link>
           </div>
         </div>
       </section>
 
-      <section className="wrap sec" style={{ paddingTop: 110 }}>
-        <div className="center" style={{ marginBottom: 54 }}>
-          <p className="eyebrow">How it works</p>
-          <h2 style={{ marginTop: 18 }}>Ordering is easy</h2>
-        </div>
-        <div className="steps-g">
-          <div className="st"><h3>Pick your colour</h3><p>Browse both collections, open a colour to see every photo and the full fabric details.</p></div>
-          <div className="st"><h3>Checkout</h3><p>One short page. Pay securely by card, or choose cash on delivery.</p></div>
-          <div className="st"><h3>We deliver</h3><p>Packed with care and at your door in 1–5 working days, anywhere in Sri Lanka.</p></div>
+      {/* 8. How it works */}
+      <section className="wrap sx" style={{ paddingTop: 0 }}>
+        <SectionHeading eyebrow="How it works" title="Ordering takes a minute" intro={`No card, no account. Delivery from ${money(from)}${settings.free_over > 0 ? `, free over ${money(settings.free_over)}` : ''}.`} />
+        <div className="steps4">
+          {STEPS.map(([t, d], i) => (
+            <div key={t} className="card step step-img" data-rv style={{ '--d': `${i * 0.08}s`, '--bgimg': `url(${STEP_IMG[i]})` }}><h3>{t}</h3><p>{d}</p></div>
+          ))}
         </div>
       </section>
 
-      <section className="wrap sec" style={{ paddingTop: 110 }}>
-        <div className="center" style={{ marginBottom: 40 }}>
-          <p className="eyebrow">FAQ</p>
-          <h2 style={{ marginTop: 18 }}>Questions, answered</h2>
-        </div>
-        <div className="faq">
-          {FAQ.map(([q, a]) => <details key={q}><summary>{q}</summary><p>{a}</p></details>)}
+      {/* 9. Colour marquee */}
+      <section className="marquee" aria-label="Colours available">
+        <div className="marquee-track">
+          {[0, 1].map(k => <div key={k} aria-hidden={k === 1}>{COLOURS.map(c => <span key={c}>{c}</span>)}</div>)}
         </div>
       </section>
 
-      <section className="wrap sec" style={{ paddingTop: 110 }}>
-        <div className="closer">
-          <div className="closer-cols" aria-hidden="true">
-            {[0, 1].map(col => (
-              <div key={col} className="closer-col">
-                {[0, 1].map(k => (
-                  <div key={k}>
-                    {products.filter((_, i) => i % 2 === col).slice(0, 8).map(p => <img key={p.id} src={p.images[p.images.length > 1 ? 1 : 0]} alt="" loading="lazy" />)}
-                  </div>
-                ))}
-              </div>
-            ))}
+      {/* 10. FAQ + call back */}
+      <section className="wrap sx">
+        <SectionHeading eyebrow="FAQ" title="Questions, answered" />
+        <div className="faq-g">
+          <div className="faq" data-rv>
+            {FAQ.map(([q, a]) => <details key={q}><summary>{q}</summary><p>{a}</p></details>)}
           </div>
-          <p className="eyebrow">Ready when you are</p>
-          <h2>Find the lehenga for your day</h2>
+          <CallbackForm whatsapp={wa} />
+        </div>
+      </section>
+
+      {/* 11. Final CTA */}
+      <section className="wrap" style={{ paddingBottom: 'clamp(72px, 9vw, 120px)' }}>
+        <div className="ctaband" data-rv style={{ '--bgimg': 'url(/images/banner-returns.jpg)' }}>
+          <div>
+            <p className="eyebrow">Ready when you are</p>
+            <h2>Find the lehenga for your day</h2>
+            <p>Send us the colour you love on WhatsApp. We confirm stock, delivery and total in minutes.</p>
+          </div>
           <div className="cta-row">
-            <Link className="btn btn-light" href="/shop">Shop now <span className="arrow">→</span></Link>
-            <a className="btn btn-wa" href={waLink(wa, 'Hi Smile Shopping!')} target="_blank" rel="noopener"><WAIcon /> Chat on WhatsApp</a>
+            <a className="btn btn-light" href={waLink(wa, 'Hi Smile Shopping! I would like to order.')} target="_blank" rel="noopener"><WAIcon /> Order on WhatsApp</a>
+            <Link className="btn btn-line" href="/shop">Browse colours <Arr /></Link>
           </div>
         </div>
       </section>

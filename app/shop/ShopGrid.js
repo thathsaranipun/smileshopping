@@ -2,6 +2,7 @@
 import Link from 'next/link';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import ProductCard from '@/components/ProductCard';
+import PageHero from '@/components/PageHero';
 import { WAIcon, SearchIcon } from '@/components/icons';
 import { waLink } from '@/lib/format';
 
@@ -57,10 +58,17 @@ export default function ShopGrid({ cats, products, cat, q: q0, focus, whatsapp }
     return ps;
   }, [products, c, q, sort]);
 
+  const intro = cat === 'kanjivaram-silk'
+    ? 'Silk zari lehenga, blouse and a Banarasi voni. Light, festive and ready to drape.'
+    : cat === 'kanchi-cotton'
+      ? 'South-style Kanchi cotton with zari weaving. Stitched lehenga, blouse fabric and georgette dupatta.'
+      : 'Every half saree and lehenga in ready stock. Find your colour and order on WhatsApp.';
+
   return (
+    <>
+    <PageHero image="/images/banner-shop.jpg" pos="center 6%" eyebrow="Smile Shopping · Shop" title={c ? c.name : 'Shop all'} intro={intro} />
     <section className="wrap page-top">
       <div className="shop-head">
-        <div><p className="eyebrow">Smile Shopping · Shop</p><h1 className="pg-title">{c ? c.name : 'All products'}</h1></div>
         <span className="mute">{list.length} {list.length === 1 ? 'product' : 'products'}</span>
       </div>
       <div className="tools">
@@ -83,5 +91,6 @@ export default function ShopGrid({ cats, products, cat, q: q0, focus, whatsapp }
         </div>
       )}
     </section>
+    </>
   );
 }

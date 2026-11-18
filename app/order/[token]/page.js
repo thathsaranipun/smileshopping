@@ -6,7 +6,7 @@ import { supabase } from '@/lib/supabase';
 import { ReceiptHead, ReceiptLine } from '@/components/Receipt';
 import { WAIcon } from '@/components/icons';
 import { useOrder } from '@/lib/useOrder';
-import { money, STAGES, STAGE_LABEL } from '@/lib/format';
+import { money, waLink, orderMessage, STAGES, STAGE_LABEL } from '@/lib/format';
 
 export default function OrderPage() {
   const { token } = useParams();
@@ -27,11 +27,21 @@ export default function OrderPage() {
         <div className="okmark"><img src="/bird.webp" alt="" /></div>
         <h1>Thank you, {first}!</h1>
         <p>
-          Order <span className="oid">{o.order_no}</span> is{' '}
-          {o.pay_status === 'Paid' ? 'paid and confirmed' : o.pay_status === 'COD' ? `confirmed. Pay ${money(o.total)} on delivery` : 'waiting for payment'}.
+          Order <span className="oid">{o.order_no}</span> is with us.{' '}
+          {o.pay_status === 'Paid' ? 'It is paid.' : `Pay ${money(o.total)} in cash when it arrives.`}
           {' '}Save this page to check your order status.
         </p>
       </div>
+
+      {wa && o.status !== 'Cancelled' && o.status !== 'Delivered' && (
+        <div className="card sendbox">
+          <p><b>Didn&apos;t see WhatsApp open?</b><br />Send us your order so we can confirm stock and delivery.</p>
+          <a className="btn btn-wa" target="_blank" rel="noopener" href={waLink(wa, orderMessage({
+            items: o.items, subtotal: o.subtotal, delivery: o.delivery, orderNo: o.order_no,
+            customer: { name: o.customer_name, mobile: o.mobile, address: o.address, district: o.district }, link: typeof location !== 'undefined' ? location.href : '',
+          }))}><WAIcon /> Send order on WhatsApp</a>
+        </div>
+      )}
 
       <div className="trk-card">
         <h3>{cancelled ? 'This order was cancelled' : o.status === 'Delivered' ? `Delivered to ${o.district}` : `Your order is on its way to ${o.district}`}</h3>
@@ -53,7 +63,7 @@ export default function OrderPage() {
         <div className="r-line" style={{ marginTop: 10 }}><span>Subtotal</span><span>{money(o.subtotal)}</span></div>
         <div className="r-line"><span>Delivery to {o.district}</span><span>{o.delivery ? money(o.delivery) : 'FREE'}</span></div>
         <div className="r-line r-total"><span>Total</span><span>{money(o.total)}</span></div>
-        <div className="r-note">Payment: {o.pay_status === 'Paid' ? 'Paid online' : o.pay_status === 'COD' ? 'Cash on delivery' : o.pay_status}<br />Deliver to: {o.address}, {o.district}</div>
+        <div className="r-note">Payment: {o.pay_status === 'Paid' ? 'Paid' : 'Cash on delivery'}<br />Deliver to: {o.address}, {o.district}</div>
       </div>
 
       <div className="ord-actions">
