@@ -127,6 +127,8 @@ const HALF_SAREE_SETS = ITEMS.map(([slug, colour, cat, n, featured, ownPrice], i
    options: the choices a customer picks (sizes or colours); optionLabel names them.
    --------------------------------------------------------------------------------------------------------- */
 const SIZES = ['M (38)', 'L (40)', 'XL (42)', 'XXL (44)'];
+const SIZES_S_3XL = ['S (36)', 'M (38)', 'L (40)', 'XL (42)', 'XXL (44)', '3XL (46)'];
+const KIDS_AGES = ['3 yrs', '4 yrs', '5 yrs', '6 yrs', '7 yrs', '8 yrs', '9 yrs', '10 yrs', '11 yrs', '12 yrs', '13 yrs', '14 yrs', '15 yrs'];
 
 export const COLLECTION = [
   {
@@ -242,6 +244,131 @@ Border : Zari border
 Availability : Single piece per colour, ready stock`,
   },
   {
+    slug: 'semi-gadwal-pattu-premium-saree', cat: 'sarees', price: 12300, photos: 5, featured: true,
+    name: 'Semi Gadwal Pattu Premium Saree',
+    description: `Latest and exclusive. A very exclusive premium semi Gadwal pattu saree.
+
+Saree
+Fabric : Semi Gadwal pattu
+Quality : Very exclusive premium
+Availability : In stock, ready to ship`,
+  },
+  {
+    slug: 'semi-gadwal-pattu-kanchi-border-saree', cat: 'sarees', price: 8500, photos: 35, featured: true,
+    name: 'Soft Semi Gadwal Pattu Saree · Kanchi Border',
+    description: `Soft semi Gadwal pattu sarees with self weaving butties and contrast Kanchi weaving borders.
+
+Saree
+Fabric : Soft semi Gadwal pattu
+Body : Self weaving butties
+Border : Contrast Kanchi weaving border
+Blouse : Contrast blouse, as shown
+Availability : In stock, ready to ship`,
+  },
+  {
+    slug: 'ready-to-wear-saree-koti-200', cat: 'sarees', price: 7750, photos: 12, featured: true,
+    name: 'Ready to Wear Saree with Embroidered Koti · D.No 200',
+    description: `New super trending ready to wear saree with a full embroidery sequence work koti (jacket).
+
+Saree
+Fabric : Heavy satin crepe
+Stitching : Ready to wear
+
+Jacket (Koti)
+Fabric : Heavy satin crepe
+Work : Embroidery sequence work
+Size : Fully stitched, up to 42
+
+Blouse
+Fabric : Heavy satin crepe with embroidery work
+
+Belt
+Work : Embroidery belt, fully stitched
+Weight : 1 kg`,
+  },
+  {
+    slug: 'soft-silk-zari-stripe-saree', cat: 'sarees', price: 5920, photos: 24, featured: true,
+    name: 'Luxury Soft Silk Zari Stripe Saree',
+    description: `Luxury soft silk wedding and party wear saree. Light weight, soft texture, feel the quality.
+
+Saree
+Fabric : Dana 11/2 warp with 75D karishma silk
+Design : Rich line zari and chain design checks with zari stripes, pattu type weaving
+Pallu : Rich running zari pallu with plain vertical stripes
+Blouse : Running blouse
+Thread : First quality thread, guaranteed quality
+Availability : Multiples and uniform sets available, ready to ship`,
+  },
+  {
+    slug: 'exclusive-designer-silk-saree', cat: 'sarees', price: 5790, photos: 35, featured: true,
+    name: 'Exclusive Designer Bridal Silk Saree',
+    description: `New arrival. Exclusive designer silk saree, more attractive than pure soft silk sarees. Direct manufacturer price.
+
+Saree
+Fabric : Bridal silk material (a type of pure silk)
+Weaving : 360 speed RPM, 100% genuine quality
+Design : Full body real 3D embossed rich design
+Zari : Rose gold zari type, woven with matching 110 karizma
+Pallu : Rich pallu
+Blouse : Contrast blouse`,
+  },
+  {
+    slug: 'chanderi-temple-border-saree', cat: 'sarees', price: 5200, photos: 13, featured: false,
+    name: 'Chanderi Printed Temple Border Saree',
+    description: `Woven whispers of royalty, wrapped in Chanderi charm.
+
+Saree
+Fabric : Polyester viscose Chanderi
+Work : Printed with temple border
+Length : 5.5 meters
+
+Blouse (unstitched)
+Fabric : Polyester viscose Chanderi
+Work : Printed with temple border
+Length : 0.80 meter
+Weight : 0.59 kg`,
+  },
+  {
+    slug: 'space-fendy-silk-beads-saree', cat: 'sarees', price: 4980, photos: 8, featured: false,
+    name: 'Pure Space Fendy Silk Beads Work Saree',
+    description: `Fresh arrival. Pure space fendy silk saree with bead work and viscose thread embroidered flowers all over.
+
+Saree
+Fabric : Pure space fendy silk
+Work : Bead work with viscose thread flower embroidery all over
+Blouse : Running blouse`,
+  },
+  {
+    slug: 'kaveri-malmal-cotton-silk-saree', cat: 'sarees', price: 4760, photos: 7, featured: false,
+    name: 'Kaveri Mal Mal Cotton Silk Saree',
+    description: `New launch, catalogue Kaveri. Upgrade your wardrobe with this khadi cotton saree.
+
+Saree
+Fabric : Mal mal cotton silk
+Length : 5.5 meters
+
+Blouse (unstitched)
+Fabric : Beautiful jacquard wine rose zari
+Availability : Single and bulk available, ready to ship`,
+  },
+  {
+    slug: 'mirror-work-raw-silk-blouse', cat: 'sarees', price: 3690, photos: 10, featured: false,
+    name: 'Mirror Work Pure Raw Silk Blouse',
+    description: `Trending ready made blouse, Navratri special. Pair it with any saree or lehenga.
+
+Blouse
+Fabric : Pure raw silk
+Work : Multicolour mirror work
+Pattern : Apple cut blouse
+Size : Free size up to 42, 10 inch sleeve margin inside
+Height : 15 inches
+Padded : Yes
+Lining : Cotton
+Opening : Back with hook
+Colours : 7 colours
+Weight : 300 g`,
+  },
+  {
     slug: 'net-embroidery-lehenga-1025', cat: 'lehengas', price: 4300, photos: 12, featured: true,
     name: 'Net Embroidery Lehenga · Design 1025',
     description: `Beautiful new fancy embroidery work lehenga.
@@ -260,6 +387,31 @@ Dupatta
 Fabric : Heavy net with embroidery and cut work
 Length : 2.20 meters approx
 Weight : 500 g`,
+  },
+  {
+    slug: 'mono-satin-sequins-lehenga-1686', cat: 'lehengas', price: 13250, photos: 3, featured: true,
+    name: 'Mono Satin Sequins Cut Work Lehenga · D.No 1686',
+    description: `A 4 meter flared coding sequins cut work lehenga with can-can and canvas layers. A perfect fusion of glamour and comfort.
+
+Lehenga
+Fabric : Heavy mono satin silk
+Work : Coding sequins cut work with can-can and canvas patta
+Flair : 4 meters
+Stitching : Semi stitched
+Length : 42 inches
+Size : Up to 44
+Colour : Blue
+
+Blouse (unstitched)
+Fabric : Heavy mono satin silk
+Work : Coding sequins work
+Length : 2 meters
+
+Dupatta
+Fabric : Butterfly net
+Work : Coding sequins cut work
+Length : 2.3 meters
+Weight : Under 2 kg`,
   },
   {
     slug: 'farshi-suit-set-1505', cat: 'suit-sets', price: 9240, photos: 8, featured: true, options: SIZES,
@@ -352,6 +504,132 @@ Fabric : Natural satin silk with lace border
 Weight : 800 g`,
   },
   {
+    slug: 'deepavali-combo-suit-set', cat: 'suit-sets', price: 11700, photos: 5, featured: true, options: SIZES_S_3XL,
+    name: 'Deepavali Combo Offer · 3 Kurta Sets',
+    description: `Deepavali combo offer: three kurta, bottom and dupatta sets in one pack. Designs Panel, Chameli and Pooja.
+
+Kurta
+Fabric : Cotton slub with all over embroidery work
+Length : 44+ inches
+Sizes : S (36), M (38), L (40), XL (42), XXL (44), 3XL (46)
+
+Bottom
+Fabric : Cotton slub
+Length : 38+ inches
+
+Dupatta
+Fabric : Maico, chinon, Chanderi
+Length : 2.20 meters
+
+Package
+Package Contains : 3 sets (Panel, Chameli, Pooja)
+Weight : 1.4 kg`,
+  },
+  {
+    slug: 'crepe-anarkali-suit-519', cat: 'suit-sets', price: 9300, photos: 13, featured: true, options: SIZES_S_3XL,
+    name: 'Designer Crepe Anarkali Suit · D.No 519',
+    description: `New designer Anarkali suit in a new fancy style. Fully stitched with zip.
+
+Anarkali
+Fabric : Heavy natural crepe with 5 mm sequence and cording embroidery, full sleeves
+Inner : Micro cotton
+Length : 50–52 inches
+Sizes : S (36), M (38), L (40), XL (42), XXL (44), 3XL (46) with margin, fully stitched
+
+Pant
+Fabric : Heavy natural crepe
+Length : 38–40 inches
+
+Dupatta
+Fabric : Heavy tabby organza with 5 mm sequence and embroidery work
+Length : 2.20 meters
+Weight : 1.2 kg`,
+  },
+  {
+    slug: 'chinon-silk-anarkali-suit-534', cat: 'suit-sets', price: 8500, photos: 5, featured: true, options: SIZES_S_3XL,
+    name: 'Karwa Chauth Chinon Silk Anarkali Suit · D.No 534',
+    description: `Karwa Chauth special. New designer Anarkali suit in a new fancy style, with zip.
+
+Anarkali
+Fabric : Heavy chinon silk with 3 mm sequence and zari embroidery, full long sleeves
+Inner : Micro cotton
+Length : 50–52 inches
+Flair : 6 meters
+Sizes : S (36), M (38), L (40), XL (42), XXL (44), 3XL (46) with margin
+
+Pant
+Fabric : Chinon silk
+Inner : Micro cotton
+Length : 39–40 inches
+
+Dupatta
+Fabric : Heavy chinon silk with 5 mm sequence embroidery
+Border : Fancy lace border cut work with 3 mm sequence embroidery
+Length : 2.30 meters
+Weight : 950 g`,
+  },
+  {
+    slug: 'fox-georgette-palazzo-set', cat: 'suit-sets', price: 8230, photos: 16, featured: true, options: ['S (36)', 'M (38)', 'L (40)', 'XL (42)', 'XXL (44)'],
+    name: 'Fox Georgette Party Wear Top & Palazzo Set',
+    description: `New designer party wear top and palazzo with a fancy dupatta and embroidery sequence work. Minor colour difference is possible due to photography.
+
+Top
+Fabric : Premium heavy soft fox georgette with heavy sequence, multi thread embroidery, zari work and boring chippli
+Inner : Micro cotton
+Length : 44–45 inches
+Sizes : S (36), M (38), L (40), XL (42), with margin to XXL (44)
+
+Bottom
+Fabric : Premium heavy soft fox georgette with the same embroidery work
+Length : 40 inches
+
+Dupatta
+Fabric : Premium heavy soft fox georgette with the same embroidery work
+Border : Two side big border
+Length : 2.2 meters
+Weight : 800 g`,
+  },
+  {
+    slug: 'hamia-crepe-silk-palazzo-set-589', cat: 'suit-sets', price: 7200, photos: 7, featured: false, options: ['S (36)', 'M (38)', 'L (40)', 'XL (42)', 'XXL (44)'],
+    name: 'Hamia Crepe Silk Top & Palazzo Set · DN 589',
+    description: `New designer party wear top and palazzo with a fancy dupatta and embroidery sequence work.
+
+Top
+Fabric : Heavy natural crepe soft silk with heavy sequence embroidery, zari work and moti work
+Inner : Micro cotton
+Length : 44–45 inches
+Sizes : S (36), M (38), L (40), XL (42), with margin to XXL (44)
+
+Bottom
+Fabric : Heavy natural crepe soft silk with sequence embroidery zari
+Waist : Elastic
+Length : 40 inches
+
+Dupatta
+Fabric : Heavy natural crepe soft silk with heavy sequence embroidery zari work
+Border : Four side big box patta
+Length : 2.2 meters
+Weight : 750 g`,
+  },
+  {
+    slug: 'kavita-crunchy-silk-kurti-set', cat: 'suit-sets', price: 5650, photos: 10, featured: false, options: ['S', 'M', 'L', 'XL', 'XXL'],
+    name: 'Kavita Crunchy Silk Flared Kurti, Pant & Dupatta Set',
+    description: `Women's heavy crunchy silk flared kurti, pant and dupatta set, design Kavita 3. Perfect for festive wear, party wear, traditional functions and a casual ethnic look.
+
+Kurti
+Fabric : Heavy crunchy silk with sequence coding embroidery work
+Length : 46+ inches
+Sizes : S, M, L, XL, XXL
+
+Pant
+Fabric : Heavy shantoon silk
+Length : 40 inches
+
+Dupatta
+Fabric : Crunchy silk
+Weight : 470 g`,
+  },
+  {
     slug: 'aliya-cut-handwork-top', cat: 'gowns-kurtis', price: 5850, photos: 8, featured: false, options: ['M', 'L', 'XL', 'XXL'],
     name: 'Aliya Cut Heavy Handwork Flared Top',
     description: `Heavy handwork top in georgette, Aliya cut with front pleats and a full flare.
@@ -378,6 +656,116 @@ Sizes : S (36), M (38), L (40), XL (42), XXL (44), 3XL (46)
 Weight : 450 g`,
   },
   {
+    slug: 'fendy-silk-gown-sequence-dupatta', cat: 'gowns-kurtis', price: 8600, photos: 5, featured: true, options: SIZES,
+    name: 'Fendy Silk Designer Gown with Sequence Dupatta',
+    description: `Exclusive trending designer gown with a heavy sequence embroidery work dupatta. Fully stitched and ready to wear.
+
+Gown
+Fabric : Fendy silk, fully flared
+Sleeves : Full
+Inner : Heavy micro cotton
+Length : 49–50 inches
+Sizes : M (38), L (40), XL (42), XXL (44)
+
+Pant
+Fabric : Micro cotton
+Length : 39–40 inches
+
+Dupatta
+Fabric : Fendy silk
+Work : Sequence embroidery work
+Weight : 950 g`,
+  },
+  {
+    slug: 'fendy-silk-peacock-gown-3185', cat: 'gowns-kurtis', price: 7850, photos: 42, featured: true, options: SIZES,
+    name: 'Fendy Silk Embroidery Gown Set · D.No 3185',
+    description: `Women's ethnic wear. Fully stitched and ready to wear, premium quality.
+
+Gown
+Fabric : Fendy silk
+Design : Embroidery codding and sequence work
+Sleeves : Full
+Inner : Heavy micro cotton
+Sizes : M (38), L (40), XL (42), XXL (44)
+
+Pant
+Fabric : Fendy silk
+Inner : Micro cotton
+
+Dupatta
+Fabric : Fendy silk
+Design : Embroidery codding and sequence work with lace border
+Weight : 850 g`,
+  },
+  {
+    slug: 'megha-rangoli-anarkali', cat: 'gowns-kurtis', price: 5480, photos: 11, featured: true, options: SIZES_S_3XL,
+    name: 'Megha Rangoli Embroidery Anarkali with Belt',
+    description: `All new Rangoli embroidery Anarkali suit, catalogue Megha. Comes with a matching belt.
+
+Anarkali
+Fabric : Rangoli
+Lining : Complete lining
+Length : 52+ inches
+Sleeve Length : 22 inches
+Flair : 4 meters
+Colours : Maroon, lavender, blue, onion, purple
+Sizes : S (36), M (38), L (40), XL (42), XXL (44), 3XL (46)
+
+Dupatta
+Fabric : Rangoli, four side border
+Weight : 530 g`,
+  },
+  {
+    slug: 'silk-cotton-kanchi-border-kurti-set', cat: 'gowns-kurtis', price: 5220, photos: 16, featured: false, options: SIZES_S_3XL,
+    name: 'Silk Cotton Kanchi Border Gown & Dupatta',
+    description: `Elevate your style with this pure silk cotton set with a beautiful zari Kanchi border and a contrast zari weaving dupatta. Perfect festival wear.
+
+Gown
+Fabric : Premium quality silk cotton
+Border : Zari Kanchi border work
+Sizes : S (36), M (38), L (40), XL (42), XXL (44), 3XL (46)
+
+Dupatta
+Design : Contrast zari weaving
+Weight : 430 g`,
+  },
+  {
+    slug: 'vel-design-chettinad-kurti', cat: 'gowns-kurtis', price: 4820, photos: 15, featured: false, options: SIZES_S_3XL,
+    name: 'Murugan Vel Design Chettinad Cotton Kurti',
+    description: `New festival kurti, Vel design. Wear the power of Murugan Vel. Shipping extra.
+
+Kurti
+Fabric : Chettinad cotton with Vel symbol
+Lining : Complete lining, with back side pattern and dori or funka
+Length : 46+ inches
+Sizes : S (36), M (38), L (40), XL (42), XXL (44), 3XL (46)
+Colours : 4 colours
+
+Dupatta
+Fabric : Chettinad cotton
+Length : 2.25 meters
+Weight : 430 g`,
+  },
+  {
+    slug: 'check-kurti-kalamkari-dupatta', cat: 'gowns-kurtis', price: 4500, photos: 17, featured: false,
+    options: ['S', 'M', 'L', 'XL', '2XL', '3XL', '4XL', '5XL'],
+    name: 'Check Weaving Kurti with Kalamkari Dupatta',
+    description: `Traditional check weaving kurti with a Kalamkari print dupatta.
+
+Kurti
+Fabric : Silk cotton
+Length : 43–44 inches
+Sleeve Length : 11 inches
+Lining : Crepe
+Neck : Scallop cut work with canvas stitch finish
+Sizes : S, M, L, XL, 2XL, 3XL, 4XL, 5XL
+
+Dupatta
+Fabric : Chennuri silk
+Design : Kalamkari prints, 4 floral designs with no human or figure prints
+Weight : 350–400 g`,
+  },
+  {
     slug: 'kids-silk-suit-set', cat: 'kids', price: 4850, photos: 2, featured: false, optionLabel: 'Age',
     options: ['3 yrs', '4 yrs', '5 yrs', '6 yrs', '7 yrs', '8 yrs', '9 yrs', '10 yrs', '11 yrs', '12 yrs', '13 yrs', '14 yrs', '15 yrs'],
     name: "Kids' GMY Silk Top, Palazzo & Dupatta Set",
@@ -396,6 +784,27 @@ Dupatta
 Fabric : GMY silk
 Design : Embroidery work
 Ages : 3 to 15 years`,
+  },
+  {
+    slug: 'kids-fendy-silk-gown-set-254', cat: 'kids', price: 6850, photos: 17, featured: true, optionLabel: 'Age', options: KIDS_AGES,
+    name: "Kids' Fendy Silk Embroidery Gown Set · Code 254",
+    description: `Premium quality, ready to wear, showroom finished. A trending kids gown set, fully stitched. See the size chart in the photos.
+
+Gown
+Fabric : Heavy fendy silk
+Work : Embroidery threads, zari and sequins work
+Sleeves : Full sleeves
+Inner : Micro cotton
+Stitching : Fully stitched
+
+Bottom
+Fabric : Micro cotton, fully stitched
+
+Dupatta
+Fabric : Heavy fendy silk
+Work : Embroidery threads, zari and sequins work
+Ages : 3 to 15 years
+Weight : 650 g`,
   },
 ];
 

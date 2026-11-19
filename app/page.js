@@ -58,11 +58,11 @@ export default async function Home() {
   const catInfo = {
     'kanjivaram-silk': { tag: 'Silk', blurb: 'Silk zari lehenga, blouse and a Banarasi voni. Light, festive and ready to drape.', shot: '/images/collections/silk.jpg' },
     'kanchi-cotton': { tag: 'Cotton', blurb: 'South-style Kanchi cotton with zari weaving. Stitched lehenga, blouse fabric and georgette dupatta.', shot: '/images/collections/cotton.jpg' },
-    sarees: { tag: 'Sarees', blurb: 'Kanchipuram pattu, bridal brocade, Banarasi, Kerala mulmul, satin and linen.', shot: '/images/collections/sarees.jpg', unit: 'styles' },
-    lehengas: { tag: 'Lehengas', blurb: 'Heavy net lehengas with multi thread embroidery and cut work borders.', shot: '/images/collections/lehengas.jpg', unit: 'styles' },
-    'suit-sets': { tag: 'Suits', blurb: 'Fully stitched farshi, palazzo and party wear sets with dupatta, M to XXL.', shot: '/images/collections/suit-sets.jpg', unit: 'styles' },
-    'gowns-kurtis': { tag: 'Gowns', blurb: 'Three layer maxi gowns and Aliya cut flared tops with heavy handwork.', shot: '/images/collections/gowns-kurtis.jpg', unit: 'styles' },
-    kids: { tag: 'Kids', blurb: 'Fully stitched silk sets for girls aged 3 to 15 years.', shot: '/images/collections/kids.jpg', unit: 'styles' },
+    sarees: { tag: 'Sarees', blurb: 'Kanchipuram and semi Gadwal pattu, designer bridal silk, Banarasi, ready to wear, mulmul, Chanderi and linen.', shot: '/images/collections/sarees.jpg', unit: 'styles' },
+    lehengas: { tag: 'Lehengas', blurb: 'Heavy net and mono satin lehengas with embroidery, sequins and cut work borders.', shot: '/images/collections/lehengas.jpg', unit: 'styles' },
+    'suit-sets': { tag: 'Suits', blurb: 'Fully stitched Anarkali, farshi, palazzo and party wear sets with dupatta, S to 3XL.', shot: '/images/collections/suit-sets.jpg', unit: 'styles' },
+    'gowns-kurtis': { tag: 'Gowns', blurb: 'Fendy silk gowns, Rangoli Anarkalis, Kanchi border and Chettinad kurtis, and flared handwork tops.', shot: '/images/collections/gowns-kurtis.jpg', unit: 'styles' },
+    kids: { tag: 'Kids', blurb: 'Fully stitched silk sets and embroidery gowns for girls aged 3 to 15 years.', shot: '/images/collections/kids.jpg', unit: 'styles' },
   };
 
   return (
