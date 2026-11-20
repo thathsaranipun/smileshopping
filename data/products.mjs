@@ -232,7 +232,7 @@ Design : Printed blouse
 Availability : Single colour`,
   },
   {
-    slug: 'lichi-silk-banarasi-saree', cat: 'sarees', price: 4300, photos: 6, featured: false,
+    slug: 'lichi-silk-banarasi-saree', cat: 'sarees', price: 4300, photos: 7, featured: false,
     name: 'Organic Banarasi Lichi Silk Saree',
     description: `Your dream wedding look should fit your comfort. Breathable organic Banarasi sarees for intimate and big Indian weddings, light on your skin.
 
@@ -243,7 +243,7 @@ Blouse Length : 0.8 meter
 Weight : 550 g`,
   },
   {
-    slug: 'ajrakh-crepe-gajji-silk-saree', cat: 'sarees', price: 4700, photos: 6, featured: false,
+    slug: 'ajrakh-crepe-gajji-silk-saree', cat: 'sarees', price: 4700, photos: 7, featured: false,
     name: 'Ajrakh Print Premium Crepe Silk Saree',
     description: `New super Ajrakh saree in pure crepe Gajji silk.
 
@@ -257,7 +257,7 @@ Weight : 480 g
 Availability : Single and bulk ready`,
   },
   {
-    slug: 'mysore-silk-weaving-border-saree', cat: 'sarees', price: 4520, photos: 7, featured: false,
+    slug: 'mysore-silk-weaving-border-saree', cat: 'sarees', price: 4520, photos: 8, featured: false,
     name: 'Super Premium Mysore Silk Saree',
     description: `Super hit new collection. Multiples ready to dispatch.
 
@@ -270,7 +270,7 @@ Blouse
 Design : Perfectly matching blouse, as shown in the photos`,
   },
   {
-    slug: 'kanjiveram-silk-zari-lehenga', cat: 'lehengas', price: 5390, photos: 40, featured: true,
+    slug: 'kanjiveram-silk-zari-lehenga', cat: 'lehengas', price: 5390, photos: 41, featured: true,
     name: 'Kanjiveram Silk Zari Lehenga with Banarasi Dupatta',
     description: `Kanjiveram silk zari lehenga with blouse, along with a Banarasi silk dupatta. 100% pure quality.
 
@@ -288,7 +288,7 @@ Length : 2.25 meters
 Availability : Ready stock`,
   },
   {
-    slug: 'vichitra-silk-draping-gown', cat: 'gowns-kurtis', price: 5450, photos: 11, featured: true, options: SIZES_S_3XL,
+    slug: 'vichitra-silk-draping-gown', cat: 'gowns-kurtis', price: 5450, photos: 12, featured: true, options: SIZES_S_3XL,
     name: 'Vichitra Silk Draping Style Party Gown',
     description: `Exclusive arrival. A party wear draping style gown with complete beads work on the yoke, plus a dupatta and belt so you can style it many ways. Perfect for festivals and functions.
 
@@ -308,7 +308,7 @@ Set : Gown, dupatta and belt
 Sizes : S to 3XL`,
   },
   {
-    slug: 'slub-cotton-embroidery-suit-set', cat: 'suit-sets', price: 4160, photos: 15, featured: false, options: ['S (36)', 'M (38)', 'L (40)', 'XL (42)', 'XXL (44)'],
+    slug: 'slub-cotton-embroidery-suit-set', cat: 'suit-sets', price: 4160, photos: 16, featured: false, options: ['S (36)', 'M (38)', 'L (40)', 'XL (42)', 'XXL (44)'],
     name: 'Slub Cotton Embroidery Kurti, Pant & Dupatta Set',
     description: `Guaranteed quality product.
 
@@ -327,7 +327,7 @@ Sizes : S (36), M (38), L (40), XL (42), XXL (44)
 Weight : 400 g`,
   },
   {
-    slug: 'blackberry-viscose-suit-set', cat: 'suit-sets', price: 5350, photos: 10, featured: true, options: ['S', 'M', 'L', 'XL', 'XXL'],
+    slug: 'blackberry-viscose-suit-set', cat: 'suit-sets', price: 5350, photos: 11, featured: true, options: ['S', 'M', 'L', 'XL', 'XXL'],
     name: 'BlackBerry Viscose Embroidered Suit Set',
     description: `Catalogue BlackBerry.
 
@@ -348,7 +348,7 @@ Length : 2.25 meters
 Sizes : S, M, L, XL, XXL`,
   },
   {
-    slug: 'vichitra-silk-kurta-pant-set', cat: 'suit-sets', price: 5550, photos: 6, featured: false, options: ['M (38)', 'L (40)', 'XL (42)', 'XXL (44)', '3XL (46)'],
+    slug: 'vichitra-silk-kurta-pant-set', cat: 'suit-sets', price: 5550, photos: 7, featured: false, options: ['M (38)', 'L (40)', 'XL (42)', 'XXL (44)', '3XL (46)'],
     name: 'Vichitra Silk Designer Kurta Pant Set',
     description: `New premium designer kurta pant set. 100% quality satisfaction guaranteed. Colour may vary slightly from the picture due to lighting.
 
@@ -367,7 +367,7 @@ Sizes : M (38), L (40), XL (42), XXL (44), 3XL (46)
 Weight : 550 g`,
   },
   {
-    slug: 'summer-cotton-3-piece-combo', cat: 'suit-sets', price: 9400, photos: 10, featured: true, options: ['S (36)', 'M (38)', 'L (40)', 'XL (42)', 'XXL (44)', '3XL (46)'],
+    slug: 'summer-cotton-3-piece-combo', cat: 'suit-sets', price: 9400, photos: 11, featured: true, options: ['S (36)', 'M (38)', 'L (40)', 'XL (42)', 'XXL (44)', '3XL (46)'],
     name: 'Summer Special Slub Cotton Suit · 3 Set Combo',
     description: `New launching combo of 3 suit sets at one price. Pick any 3 designs from the photos. If you don't like a collage, choose different pictures and send your order.
 
@@ -387,7 +387,7 @@ Sizes : S (36), M (38), L (40), XL (42), XXL (44), 3XL
 Weight : 1200 g`,
   },
   {
-    slug: 'titali-tunic-palazzo-set', cat: 'suit-sets', price: 3900, photos: 33, featured: true, options: ['S (36)', 'M (38)', 'L (40)', 'XL (42)', 'XXL (44)', '3XL (46)', '4XL (48)', '5XL (50)'],
+    slug: 'titali-tunic-palazzo-set', cat: 'suit-sets', price: 3900, photos: 34, featured: true, options: ['S (36)', 'M (38)', 'L (40)', 'XL (42)', 'XXL (44)', '3XL (46)', '4XL (48)', '5XL (50)'],
     name: 'Titali Tunic & Palazzo Set · SF Vol 60',
     description: `Price by size: S to XXL Rs 3,900, 3XL to 5XL Rs 4,150. 100% quality product.
 
@@ -404,7 +404,7 @@ Size : Free size up to 5XL, elastic with belt
 Weight : 400 g`,
   },
   {
-    slug: 'banarasi-silk-kurti-set', cat: 'suit-sets', price: 5250, photos: 11, featured: false, options: SIZES_S_3XL,
+    slug: 'banarasi-silk-kurti-set', cat: 'suit-sets', price: 5250, photos: 12, featured: false, options: SIZES_S_3XL,
     name: 'Banarasi Silk Zari Kurti, Pant & Dupatta Set',
     description: `Exclusive arrival. A traditional Banarasi silk kurti set with beautiful zari work and a rich pallu dupatta. Perfect for temple and festival wear.
 
