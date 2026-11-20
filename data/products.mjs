@@ -6,7 +6,7 @@
 // Prices:         PRICES below sets the price per collection. To give one product its own price, add it as a
 //                 6th value on its line, e.g. ['red-navy', 'Red & Navy', 'kanjivaram-silk', 1, false, 5500]
 // Sold out:       add the product's slug to SOLD_OUT (it stays on the site, marked "Sold out").
-// Delivery:       ZONES at the bottom (charge per district group).
+// Delivery:       ZONES at the bottom (one flat charge for every district).
 
 const SILK = `NEW: 12 colours available
 Half saree, now in trend. 100% pure quality, same as the video.
@@ -1121,8 +1121,5 @@ const COLLECTION_PRODUCTS = COLLECTION.map((p, i) => {
 export const PRODUCTS = [...COLLECTION_PRODUCTS, ...HALF_SAREE_SETS];
 
 export const ZONES = [
-  { id: 1, name: 'Colombo district', days: '1–2 working days', rate: 350, sort: 1, districts: ['Colombo'] },
-  { id: 2, name: 'Gampaha & Kalutara', days: '1–3 working days', rate: 400, sort: 2, districts: ['Gampaha', 'Kalutara'] },
-  { id: 3, name: 'Other main districts', days: '2–4 working days', rate: 450, sort: 3, districts: ['Kandy', 'Matale', 'Nuwara Eliya', 'Galle', 'Matara', 'Hambantota', 'Kurunegala', 'Puttalam', 'Anuradhapura', 'Polonnaruwa', 'Badulla', 'Monaragala', 'Ratnapura', 'Kegalle'] },
-  { id: 4, name: 'Northern & Eastern districts', days: '3–5 working days', rate: 550, sort: 4, districts: ['Jaffna', 'Kilinochchi', 'Mannar', 'Vavuniya', 'Mullaitivu', 'Trincomalee', 'Batticaloa', 'Ampara'] },
+  { id: 1, name: 'All districts in Sri Lanka', days: '1–5 working days', rate: 350, sort: 1, districts: ['Ampara','Anuradhapura','Badulla','Batticaloa','Colombo','Galle','Gampaha','Hambantota','Jaffna','Kalutara','Kandy','Kegalle','Kilinochchi','Kurunegala','Mannar','Matale','Matara','Monaragala','Mullaitivu','Nuwara Eliya','Polonnaruwa','Puttalam','Ratnapura','Trincomalee','Vavuniya'] },
 ];

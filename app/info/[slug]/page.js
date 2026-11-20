@@ -10,7 +10,7 @@ const PAGES = {
   about: { title: 'About Smile Shopping', eyebrow: 'Who we are', image: '/images/banners/about.jpg', pos: 'center 12%', intro: 'Kanjivaram silk half sarees and South-style Kanchi cotton lehengas, in ready stock for every district in Sri Lanka.' },
   contact: { title: 'Contact us', eyebrow: 'Get in touch', image: '/images/banners/contact.jpg', pos: 'center 35%', intro: 'Questions about a colour, size or delivery? A real person replies on WhatsApp within minutes.' },
   'how-to-order': { title: 'How to order', eyebrow: 'Ordering', image: '/images/banners/howto.jpg', pos: 'center 40%', intro: 'Every order is placed and confirmed on WhatsApp. No card, no account. Pay when it arrives.' },
-  delivery: { title: 'Delivery information', eyebrow: 'Island-wide', image: '/images/banners/delivery.jpg', pos: 'center 40%', intro: 'We deliver to all 25 districts. Charges depend on your district and are shown before you send your order.' },
+  delivery: { title: 'Delivery information', eyebrow: 'Island-wide', image: '/images/banners/delivery.jpg', pos: 'center 40%', intro: 'We deliver to all 25 districts. One flat charge of Rs. 350 to anywhere in Sri Lanka.' },
   returns: { title: 'Returns & refunds', eyebrow: 'Easy returns', image: '/images/banners/returns.jpg', pos: 'center 30%', intro: 'Return unused items in original packaging within 7 days of delivery.' },
   privacy: { title: 'Privacy policy', eyebrow: 'Your information', image: '/images/banners/privacy.jpg', pos: 'center 25%', intro: 'What we collect when you order, why we need it, and how we keep it safe. We never sell your information.' },
   terms: { title: 'Terms & conditions', eyebrow: 'Shopping with us', image: '/images/banners/terms.jpg', pos: 'center 8%', intro: 'The simple rules for ordering, delivery, payment and returns at Smile Shopping.' },
@@ -93,7 +93,7 @@ export default async function Info({ params }) {
     delivery: <>
       <p>We deliver island-wide.{settings.free_over > 0 && <> Orders over {money(settings.free_over)} ship free.</>}</p>
       <div className="tbl-wrap"><table><thead><tr><th>Area</th><th>Delivery time</th><th>Charge</th></tr></thead>
-        <tbody>{zones.map(z => <tr key={z.id}><td>{z.name}<br /><small className="mute">{z.districts.join(', ')}</small></td><td>{z.days}</td><td>{money(z.rate)}</td></tr>)}</tbody></table></div>
+        <tbody>{zones.map(z => <tr key={z.id}><td>{z.name}</td><td>{z.days}</td><td>{money(z.rate)}</td></tr>)}</tbody></table></div>
     </>,
     'how-to-order': <>
       <div className="steps4" style={{ gridTemplateColumns: '1fr 1fr' }}>
@@ -148,7 +148,7 @@ export default async function Info({ params }) {
       <h2>2. Products and colours</h2>
       <p>We photograph the actual pieces, but colours can look slightly different depending on your screen and the lighting. If you are unsure, ask us on WhatsApp for a daylight video before you order.</p>
       <h2>3. Prices</h2>
-      <p>All prices are in Sri Lankan Rupees (Rs.). The delivery charge for your district is shown before you send your order. We may change prices at any time, but the price confirmed in your WhatsApp order is the price you pay.</p>
+      <p>All prices are in Sri Lankan Rupees (Rs.). Delivery is a flat Rs. 350 to any district, shown before you send your order. We may change prices at any time, but the price confirmed in your WhatsApp order is the price you pay.</p>
       <h2>4. Placing an order</h2>
       <p>You order by sending your order on WhatsApp from the website. Your order is accepted once we reply on WhatsApp to confirm it. If an item has sold out, we will tell you before dispatch and you will not be charged for it.</p>
       <h2>5. Payment</h2>

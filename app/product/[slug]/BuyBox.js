@@ -118,7 +118,7 @@ export default function BuyBox({ p, whatsapp, deliveryFrom }) {
           </a>
 
           <div className="dbox">
-            <div><span>🚚</span><span>Colombo in 1–2 working days, rest of the island in 2–5 days. From {money(deliveryFrom)}.</span></div>
+            <div><span>🚚</span><span>Colombo in 1–2 working days, rest of the island in 2–5 days. Flat {money(deliveryFrom)} to any district.</span></div>
             <div><span>💬</span><span>Order on WhatsApp and pay cash on delivery. No card needed. <Link href="/info/how-to-order">How it works</Link></span></div>
             <div><span>↩︎</span><span>7-day returns on unused items. <Link href="/info/returns">Details</Link></span></div>
           </div>

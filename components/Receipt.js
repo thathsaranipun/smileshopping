@@ -29,7 +29,7 @@ export function ReceiptLine({ item, children }) {
 
 export const zoneFor = (zones, district) => zones.find(z => z.districts?.includes(district));
 export const deliveryFor = (zones, settings, subtotal, district) => {
-  const z = zoneFor(zones, district);
+  const z = zoneFor(zones, district) || (zones.length === 1 ? zones[0] : null);
   if (!z) return null;
   return settings.free_over > 0 && subtotal >= settings.free_over ? 0 : z.rate;
 };

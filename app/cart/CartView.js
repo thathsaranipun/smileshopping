@@ -1,17 +1,13 @@
 'use client';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
 import { useCart } from '@/components/CartProvider';
 import { ReceiptHead, ReceiptLine, deliveryFor } from '@/components/Receipt';
-import { money, DISTRICTS } from '@/lib/format';
+import { money } from '@/lib/format';
 
 export const DKEY = 'ss-district';
 
 export default function CartView({ zones, settings }) {
   const { items, ready, setQty, remove, subtotal } = useCart();
-  const [district, setDistrict] = useState('');
-  useEffect(() => { try { setDistrict(localStorage.getItem(DKEY) || ''); } catch {} }, []);
-  const pick = d => { setDistrict(d); try { localStorage.setItem(DKEY, d); } catch {} };
 
   if (!ready) return <section className="wrap"><div className="receipt"><ReceiptHead title="Your cart" /></div></section>;
   if (!items.length) {
@@ -26,7 +22,7 @@ export default function CartView({ zones, settings }) {
       </section>
     );
   }
-  const del = deliveryFor(zones, settings, subtotal, district);
+  const del = deliveryFor(zones, settings, subtotal, '');
 
   return (
     <section className="wrap">
@@ -43,15 +39,8 @@ export default function CartView({ zones, settings }) {
             </div>
           </ReceiptLine>
         ))}
-        <div className="r-sel">
-          <label className="r-note" htmlFor="c-dist">Delivering to</label>
-          <select id="c-dist" value={district} onChange={e => pick(e.target.value)}>
-            <option value="">Select district</option>
-            {DISTRICTS.map(d => <option key={d}>{d}</option>)}
-          </select>
-        </div>
         <div className="r-line"><span>Subtotal</span><span>{money(subtotal)}</span></div>
-        <div className="r-line"><span>Delivery</span><span>{del === null ? 'Select district' : del === 0 ? 'FREE' : money(del)}</span></div>
+        <div className="r-line"><span>Delivery</span><span>{del === null ? '—' : del === 0 ? 'FREE' : money(del)}</span></div>
         {settings.free_over > 0 && subtotal < settings.free_over && <div className="r-note">Add {money(settings.free_over - subtotal)} more for free delivery</div>}
         <div className="r-line r-total"><span>Total</span><span>{money(subtotal + (del || 0))}</span></div>
         <Link className="btn btn-brand btn-block" href="/checkout" style={{ marginTop: 18 }}>Continue to order</Link>

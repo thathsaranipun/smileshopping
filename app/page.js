@@ -20,7 +20,7 @@ const FAQ = [
 const VALUES = [
   ['Pure quality', 'The same fabric, zari and colours you see in our photos and videos. No surprises when the parcel opens.'],
   ['Ready stock', 'Every colour is here in Sri Lanka, packed and dispatched within 1–2 working days of confirmation.'],
-  ['Island-wide', 'Delivery to all 25 districts with clear rates by district, shown before you send your order.'],
+  ['Island-wide', 'Delivery to all 25 districts for one flat Rs. 350, shown before you send your order.'],
   ['Real people', 'Questions about size, colour or delivery? A real person replies on WhatsApp within minutes.'],
 ];
 
@@ -206,7 +206,7 @@ export default async function Home() {
 
       {/* 8. How it works */}
       <section className="wrap sx" style={{ paddingTop: 0 }}>
-        <SectionHeading eyebrow="How it works" title="Ordering takes a minute" intro={`No card, no account. Delivery from ${money(from)}${settings.free_over > 0 ? `, free over ${money(settings.free_over)}` : ''}.`} />
+        <SectionHeading eyebrow="How it works" title="Ordering takes a minute" intro={`No card, no account. Delivery ${money(from)} island-wide${settings.free_over > 0 ? `, free over ${money(settings.free_over)}` : ''}.`} />
         <div className="steps4">
           {STEPS.map(([t, d], i) => (
             <div key={t} className="card step step-img" data-rv style={{ '--d': `${i * 0.08}s`, '--bgimg': `url(${STEP_IMG[i]})` }}><h3>{t}</h3><p>{d}</p></div>

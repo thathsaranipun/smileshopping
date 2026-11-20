@@ -10,7 +10,7 @@ the files in `data/` and the photos in `public/`.
 |---|---|
 | WhatsApp number, email, opening hours, free-delivery amount | `data/site.js` |
 | Products, collections, prices, sold-out items | `data/products.mjs` (instructions at the top of the file) |
-| Delivery charges per district | `ZONES` at the bottom of `data/products.mjs` |
+| Delivery charge (one flat rate for all districts) | `ZONES` at the bottom of `data/products.mjs` |
 | Product photos | `public/products/<collection>/<slug>/` → `cover.jpg` (main image) + `1.jpeg`, `2.jpeg`, … |
 | Collections | `CATEGORIES` in `data/products.mjs` (the Shop menu, footer and homepage update automatically) |
 | Logo | `public/images/brand/bird.webp`, `word.webp` |
@@ -37,7 +37,7 @@ Add its slug to `SOLD_OUT` in `data/products.mjs`, e.g. `export const SOLD_OUT =
 ## How ordering works
 - **Product page → "Order on WhatsApp"** opens WhatsApp with that product, option, quantity and price filled in.
 - **Cart → checkout → "Send order on WhatsApp"** opens WhatsApp with the full order, an order reference
-  (e.g. `SS-1118-4K7Q`), the delivery charge for the customer's district and their address.
+  (e.g. `SS-1118-4K7Q`), the delivery charge and their address.
 - The shop confirms in the chat; the customer pays the rider in cash.
 
 ## Run it
