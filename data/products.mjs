@@ -132,6 +132,295 @@ const KIDS_AGES = ['3 yrs', '4 yrs', '5 yrs', '6 yrs', '7 yrs', '8 yrs', '9 yrs'
 
 export const COLLECTION = [
   {
+    slug: 'daisy-delight-linen-saree', cat: 'sarees', price: 4500, photos: 22, featured: true,
+    name: 'Daisy Delight Linen Finish Saree',
+    description: `Bloom with style. A splash of sunshine for your wardrobe, with bold daisies all over.
+
+Saree
+Fabric : Premium high quality linen-finish fabric
+Feel : Light, breathable and comfortable for all-day wear, with a natural texture
+Saree Cut : 6.3 meters (including blouse)
+Quality : 100% premium quality finish
+Availability : Single colours available`,
+  },
+  {
+    slug: 'wct-rangoli-silk-mirror-work-saree', cat: 'sarees', price: 4400, photos: 12, featured: true,
+    name: 'WCT Rangoli Silk Saree with Mirror Work',
+    description: `Most viral trending saree. Prime quality product, just in.
+
+Saree
+Design Name : WCT
+Fabric : Soft Rangoli silk
+Work : Designer zari and thread C-pallu work with fancy real mirror work
+
+Blouse
+Fabric : Soft Rangoli silk with fancy real mirror work
+Stitching : Unstitched`,
+  },
+  {
+    slug: 'chinon-ready-to-wear-saree-full-koti', cat: 'sarees', price: 7400, photos: 16, featured: true,
+    name: 'Ready to Wear Chinon Saree with Full Koti & Belt',
+    description: `New super trending ready to wear saree with a fully stitched embroidery cording work koti (jacket) and belt.
+
+Saree
+Fabric : Heavy chinon
+Work : Fancy moti lace
+Stitching : Ready to wear
+
+Jacket (koti)
+Fabric : Banglori
+Work : Embroidery cording work
+Size : Fully stitched, up to 42
+
+Blouse
+Fabric : Heavy chinon
+
+Belt
+Work : Embroidery, fully stitched
+Weight : 1 kg`,
+  },
+  {
+    slug: 'narayanapet-cotton-saree', cat: 'sarees', price: 6100, photos: 24, featured: true,
+    name: 'Narayanapet Design 120 Count Cotton Saree',
+    description: `Traditional collection Narayanapet design cotton sarees. A very trendy Insta collection.
+
+Saree
+Fabric : 120 count cotton
+Feel : Very soft and comfortable to wear
+Blouse : Running blouse
+Length : 6.2 meters with blouse`,
+  },
+  {
+    slug: 'viscose-gajji-silk-saree', cat: 'sarees', price: 9000, photos: 11, featured: true,
+    name: 'Viscose Gajji Silk Saree · Horse & Elephant Border',
+    description: `Upcoming festive wear collection. 100% fine and first quality, ready to dispatch.
+
+Saree
+Fabric : Exclusive viscose Gajji silk
+Body : Zari woven buttas all over
+Border : Zari woven Bentex horse and elephant self border
+Pallu : Rich woven self pallu
+Blouse : Butti blouse
+Availability : Single and multiples available`,
+  },
+  {
+    slug: 'rangoli-crush-silk-saree', cat: 'sarees', price: 4560, photos: 17, featured: false,
+    name: 'Rangoli Crush Silk Saree with Embroidery Blouse',
+    description: `New arrival. Rangoli crush silk saree with a beautiful embroidery bits work blouse.
+
+Saree
+Fabric : Rangoli crush silk
+
+Blouse
+Work : Embroidery bits work
+Availability : Ready stock`,
+  },
+  {
+    slug: 'rose-mosaic-georgette-saree', cat: 'sarees', price: 4550, photos: 15, featured: true,
+    name: 'Rose Mosaic Print Georgette Saree',
+    description: `New arrival, catalogue Rose. Premium quality.
+
+Saree
+Fabric : Soft and smooth georgette
+Print : Mosaic digital print
+Border : Swarovski stone work scalloped border
+Cut : 6.30 meters
+Weight : 450 g
+
+Blouse
+Design : Printed blouse
+Availability : Single colour`,
+  },
+  {
+    slug: 'lichi-silk-banarasi-saree', cat: 'sarees', price: 4300, photos: 6, featured: false,
+    name: 'Organic Banarasi Lichi Silk Saree',
+    description: `Your dream wedding look should fit your comfort. Breathable organic Banarasi sarees for intimate and big Indian weddings, light on your skin.
+
+Saree
+Fabric : Lichi silk
+Saree Length : 5.5 meters
+Blouse Length : 0.8 meter
+Weight : 550 g`,
+  },
+  {
+    slug: 'ajrakh-crepe-gajji-silk-saree', cat: 'sarees', price: 4700, photos: 6, featured: false,
+    name: 'Ajrakh Print Premium Crepe Silk Saree',
+    description: `New super Ajrakh saree in pure crepe Gajji silk.
+
+Saree
+Fabric : Premium crepe silk
+Print : Ajrakh
+Length : 6.30 meters with blouse
+Width : 48 inches
+Latkans : 6 premium latkans
+Weight : 480 g
+Availability : Single and bulk ready`,
+  },
+  {
+    slug: 'mysore-silk-weaving-border-saree', cat: 'sarees', price: 4520, photos: 7, featured: false,
+    name: 'Super Premium Mysore Silk Saree',
+    description: `Super hit new collection. Multiples ready to dispatch.
+
+Saree
+Fabric : Super premium Mysore silk
+Border : Weaving border
+Feel : Very soft and lightweight, perfect for an official look
+
+Blouse
+Design : Perfectly matching blouse, as shown in the photos`,
+  },
+  {
+    slug: 'kanjiveram-silk-zari-lehenga', cat: 'lehengas', price: 5390, photos: 40, featured: true,
+    name: 'Kanjiveram Silk Zari Lehenga with Banarasi Dupatta',
+    description: `Kanjiveram silk zari lehenga with blouse, along with a Banarasi silk dupatta. 100% pure quality.
+
+Lehenga
+Fabric : Kanjiveram silk zari
+Length : 3 meters, unstitched
+
+Blouse
+Fabric : Banarasi silk zari work
+Length : 1 meter approx, unstitched
+
+Dupatta
+Fabric : Banarasi silk zari work
+Length : 2.25 meters
+Availability : Ready stock`,
+  },
+  {
+    slug: 'vichitra-silk-draping-gown', cat: 'gowns-kurtis', price: 5450, photos: 11, featured: true, options: SIZES_S_3XL,
+    name: 'Vichitra Silk Draping Style Party Gown',
+    description: `Exclusive arrival. A party wear draping style gown with complete beads work on the yoke, plus a dupatta and belt so you can style it many ways. Perfect for festivals and functions.
+
+Gown
+Fabric : Premium blooming vichitra silk
+Work : Sequence and beads work
+Lining : Complete crepe lining attached
+Length : 55 inches
+
+Dupatta
+Fabric : Premium blooming vichitra silk
+Length : 2.5 meters
+
+Belt
+Work : Same embroidery and beads work
+Set : Gown, dupatta and belt
+Sizes : S to 3XL`,
+  },
+  {
+    slug: 'slub-cotton-embroidery-suit-set', cat: 'suit-sets', price: 4160, photos: 15, featured: false, options: ['S (36)', 'M (38)', 'L (40)', 'XL (42)', 'XXL (44)'],
+    name: 'Slub Cotton Embroidery Kurti, Pant & Dupatta Set',
+    description: `Guaranteed quality product.
+
+Top
+Fabric : Slub cotton
+Work : Embroidery
+Length : 43+ inches
+
+Bottom
+Fabric : Slub cotton
+Length : 38+ inches
+
+Dupatta
+Fabric : Chanderi, digital printed
+Sizes : S (36), M (38), L (40), XL (42), XXL (44)
+Weight : 400 g`,
+  },
+  {
+    slug: 'blackberry-viscose-suit-set', cat: 'suit-sets', price: 5350, photos: 10, featured: true, options: ['S', 'M', 'L', 'XL', 'XXL'],
+    name: 'BlackBerry Viscose Embroidered Suit Set',
+    description: `Catalogue BlackBerry.
+
+Top
+Fabric : Viscose
+Work : Embroidered
+Sleeves : Three quarter sleeves
+Kurti Length : 44 inches
+
+Bottom
+Fabric : Viscose
+Pant Length : 39 inches
+
+Dupatta
+Fabric : Chanderi
+Work : Digital printed
+Length : 2.25 meters
+Sizes : S, M, L, XL, XXL`,
+  },
+  {
+    slug: 'vichitra-silk-kurta-pant-set', cat: 'suit-sets', price: 5550, photos: 6, featured: false, options: ['M (38)', 'L (40)', 'XL (42)', 'XXL (44)', '3XL (46)'],
+    name: 'Vichitra Silk Designer Kurta Pant Set',
+    description: `New premium designer kurta pant set. 100% quality satisfaction guaranteed. Colour may vary slightly from the picture due to lighting.
+
+Kurta
+Fabric : Vichitra silk
+Work : Embroidery
+Sleeves : 3/4 sleeves
+Length : 44+ inches
+
+Pant
+Length : 38+ inches
+
+Dupatta
+Fabric : Vichitra silk with embroidery work
+Sizes : M (38), L (40), XL (42), XXL (44), 3XL (46)
+Weight : 550 g`,
+  },
+  {
+    slug: 'summer-cotton-3-piece-combo', cat: 'suit-sets', price: 9400, photos: 10, featured: true, options: ['S (36)', 'M (38)', 'L (40)', 'XL (42)', 'XXL (44)', '3XL (46)'],
+    name: 'Summer Special Slub Cotton Suit · 3 Set Combo',
+    description: `New launching combo of 3 suit sets at one price. Pick any 3 designs from the photos. If you don't like a collage, choose different pictures and send your order.
+
+Top
+Fabric : Slub cotton
+Work : Embroidery
+Length : 42+ inches
+
+Bottom
+Fabric : Slub cotton
+Length : 38+ inches
+
+Dupatta
+Fabric : Chanderi, digital printed
+Combo : 3 suit sets, fixed combo
+Sizes : S (36), M (38), L (40), XL (42), XXL (44), 3XL
+Weight : 1200 g`,
+  },
+  {
+    slug: 'titali-tunic-palazzo-set', cat: 'suit-sets', price: 3900, photos: 33, featured: true, options: ['S (36)', 'M (38)', 'L (40)', 'XL (42)', 'XXL (44)', '3XL (46)', '4XL (48)', '5XL (50)'],
+    name: 'Titali Tunic & Palazzo Set · SF Vol 60',
+    description: `Price by size: S to XXL Rs 3,900, 3XL to 5XL Rs 4,150. 100% quality product.
+
+Tunic
+Fabric : Poly rayon
+Work : Gaj button
+Length : 32+ front, 36+ back
+Sizes : S-36, M-38, L-40, XL-42, XXL-44, 3XL-46, 4XL-48, 5XL-50
+
+Palazzo
+Fabric : Imported stretchable Lycra
+Length : 38+ inches
+Size : Free size up to 5XL, elastic with belt
+Weight : 400 g`,
+  },
+  {
+    slug: 'banarasi-silk-kurti-set', cat: 'suit-sets', price: 5250, photos: 11, featured: false, options: SIZES_S_3XL,
+    name: 'Banarasi Silk Zari Kurti, Pant & Dupatta Set',
+    description: `Exclusive arrival. A traditional Banarasi silk kurti set with beautiful zari work and a rich pallu dupatta. Perfect for temple and festival wear.
+
+Kurti
+Fabric : Premium quality Banarasi silk
+Work : Zari work
+Length : 43 inches
+Lining : Complete crepe lining
+
+Dupatta
+Design : Rich pallu
+Length : 2.25 meters
+Set : Kurti, dupatta and pant
+Sizes : S to 3XL`,
+  },
+  {
     slug: 'kanchipuram-pure-pattu-saree', cat: 'sarees', price: 64000, photos: 12, featured: true,
     name: 'Kanchipuram Pure Pattu Silk Saree',
     description: `Kanchipuram traditional and trendy designs, from the Sri Madheswaran Silks weavers.
